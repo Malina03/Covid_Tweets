@@ -4,15 +4,27 @@ import re
 import string
 import os
 import pandas as pd
-
-example = '40wita_2020-07-19.csv.bz2'
+import pickle 
+import spacy
 
 def read_data(folder):
-    data = {}
+    errors = ['40wita_2020-05-06.csv.bz2', '40wita_2020-06-21.csv.bz2']
+    flag = 0
     for f in os.listdir(folder):
         full_path = os.path.join(folder, f)
+        # print("Reading folder " + str(f)) 
+        if f in errors:
+            continue
         if os.path.isfile(full_path):
-            data[f] = pd.read_csv(full_path, delimiter=',')
+            folder_data = pd.read_csv(full_path, delimiter=',')
+            folder_data = folder_data.drop_duplicates(subset = 'text', keep = 'first')
+            folder_data['folder'] = [str(f)] * len(folder_data)
+            if flag == 0:
+                data = folder_data
+                flag = 1
+            if flag == 1:
+                data = pd.concat([data, folder_data], ignore_index = True, sort = False)
+    print("Data was read")
     return data
 
 def remove_hyperlinks(text):
@@ -68,10 +80,7 @@ def remove_tags(text):
     return user_ref.sub(r'', text)
 
 def remove_stopwords(text):
-    # print("before stop words " + text)
     stop_words = set(stopwords.words('italian')) 
-    # word_tokens = word_tokenize(text)
-    # filtered_sentence = [w for w in word_tokens if not w in stop_words] 
     filtered_sentence = []
     for w in re.split("\W+", text):
         if not w.lower() in stop_words:
@@ -82,12 +91,11 @@ def remove_numbers(text):
     return ''.join(letter for letter in text if not letter.isdigit())
 
 def clean_tweets(data):
-    # for folder in data: 
-    #     for tweet in data[folder]['text']:
-    #         processed = remove_hyperlinks(tweet).lower()
-
-    for tweet in data[example]['text']:
-        # print("before " + tweet)
+    nlp = spacy.load("it_core_news_sm")
+    data['clean_text'] = np.nan
+    for i in range(len(data['text'])):
+        print('Cleaning the tweets from folder ' + str(data['folder'][i]))
+        tweet = data['text'][i]
         first = remove_user_ref(tweet)
         second = remove_tags(first)
         third = remove_hyperlinks(second)
@@ -95,16 +103,22 @@ def clean_tweets(data):
         fifth= remove_keywords(fourth)
         sixth = remove_numbers(fifth)
         processed = remove_stopwords(sixth).lower()
-        print("after " + processed)
+        lemmatized = []
+        for token in nlp(processed):
+            if token.text != ' ':
+                lemmatized.append(token.lemma_)
+        data['clean_text'][i] = lemmatized
+    return data
+
+def save_data(data, save_path):
+    with open(save_path, 'wb') as f:
+        pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
 
 
 if __name__ == "__main__":
-    dummy = 'data/dummy'
+    data_folder = "data/40wita"
+    save_path = 'data/data_df.pickle'
     
-    data = read_data(dummy)
-    clean_tweets(data)
-
-
-
-
-
+    data = read_data(data_folder)
+    clean_data = clean_tweets(data)
+    save_data(clean_data,save_path)
