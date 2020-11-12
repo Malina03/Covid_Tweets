@@ -6,13 +6,13 @@ import os
 import pandas as pd
 import pickle 
 import spacy
+import numpy as np
 
 def read_data(folder):
     errors = ['40wita_2020-05-06.csv.bz2', '40wita_2020-06-21.csv.bz2']
     flag = 0
     for f in os.listdir(folder):
         full_path = os.path.join(folder, f)
-        # print("Reading folder " + str(f)) 
         if f in errors:
             continue
         if os.path.isfile(full_path):
@@ -32,7 +32,9 @@ def remove_hyperlinks(text):
 
 def remove_keywords(text):
     keywords = ['covid', 'covid19', 'covid-19', 'corona virus', 'coronavirus', 'quarantena', 
-                'autoisolamento', 'auto-isolamento', 'iorestoacasa', 'stateacasa', 'COVID19Italia',
+                'autoisolamento', 'auto-isolamento', 'iorestoacasa', 'stateacasa', 'COVID19Italia', 
+                'covid19italia', 'nomes', 'milanononsiferma', 'curaitalia', 'inpsdown', 'perchequando', 
+                'cercaredi', 'cineinps', 'covid19pandemic', 'andratuttobene',
                 'redditodicittadinaza', 'eurobond', 'coronabond', 'restiamoacasa', 'preghiamoinsieme',
                 'NoMes', '#milanononsiferma', 'bergamononsiferma', 'l’italianonsiferma',
                 'abbraccciauncinese', 'iononsonounvirus', 'iononmifermo', 'aperisera', 'covidunstria',
@@ -90,11 +92,31 @@ def remove_stopwords(text):
 def remove_numbers(text):
     return ''.join(letter for letter in text if not letter.isdigit())
 
+def remove_closed_class_words(text):
+    closed_class = ["mio", "io", "tuo", "tua", "quello", "quella", "questo",
+                    "questa", "tu", "me", "mi", "si", "te", "ti", "suo", "sua",
+                    "lo", "la", "che", "lui", "lei", "noi", "le", "nostro",
+                    "nostra", "ci", "gli", "loro", "voi", "vi", "vostro", "vostra", 
+                    "che", "che cosa", "chi", "dove", "perché", "perche", "come", 
+                    "quando", "quale", "ecco", "qui", "qua", "giu", "giù", "li", "lì",
+                    "là", "la", "fuori", "sotto", "su", "a", "di", "dentro", "sopra",
+                    "da", "con", "lontano", "vicino", "in", "dietro", "per", "davanti", 
+                    "fra", "tra", "ancora", "tanto", "tutto", "poco", "altro", "un altro",
+                    "un", "uno", "una", "niente", "il", "un po", "anche", "pure", "i", "nessuno",
+                    "molto", "lo", "di piu", "di più", "troppo", "del", "della", "dei", "delle",
+                    "e", "così", "ma", "quindi", "allora", "se", "voglio", "è", "ho", "sono", 
+                    "sei", "posso", "vuoi", "ha", "vuole", "hai", "devo", "devi", "puo", "può", 
+                    "deve" ]
+    filtered = []
+    for word in re.split("\W+", text):
+        if (word not in closed_class):
+            filtered.append(word)
+    return ' '.join(filtered)
+
 def clean_tweets(data):
     nlp = spacy.load("it_core_news_sm")
-    data['clean_text'] = np.nan
+    all_cleaned = []
     for i in range(len(data['text'])):
-        print('Cleaning the tweets from folder ' + str(data['folder'][i]))
         tweet = data['text'][i]
         first = remove_user_ref(tweet)
         second = remove_tags(first)
@@ -103,11 +125,15 @@ def clean_tweets(data):
         fifth= remove_keywords(fourth)
         sixth = remove_numbers(fifth)
         processed = remove_stopwords(sixth).lower()
+        processed = remove_closed_class_words(processed)
         lemmatized = []
         for token in nlp(processed):
             if token.text != ' ':
                 lemmatized.append(token.lemma_)
-        data['clean_text'][i] = lemmatized
+        all_cleaned.append(lemmatized)
+    data['cleaned_text'] = all_cleaned
+    # remove lines where the tweets are empty after preprocessing
+    data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
     return data
 
 def save_data(data, save_path):
@@ -117,6 +143,7 @@ def save_data(data, save_path):
 
 if __name__ == "__main__":
     data_folder = "data/40wita"
+    # data_folder = "data/dummy"
     save_path = 'data/data_df.pickle'
     
     data = read_data(data_folder)
