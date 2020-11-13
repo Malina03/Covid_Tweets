@@ -10,13 +10,18 @@ import numpy as np
 
 def read_data(folder):
     errors = ['40wita_2020-05-06.csv.bz2', '40wita_2020-06-21.csv.bz2']
+    expected_dtypes = {'id': 'int64', 'text': object, 'language': object, 'screen_name': object, 'date': object, 
+                        'timestamp': 'int64', 'year': 'int64', 'month': 'int64', 'day': 'int64', 'hour': 'int64', 'lat': 'float64',
+                        'lon': 'float64', 'location_json': object, 'location': object, 'source': object, 'urls': object, 
+                        'description': object, 'statuses_count': 'int64', 'followers_count': 'int64', 'friends_count': 'int64',
+                        'media': object}
     flag = 0
     for f in os.listdir(folder):
         full_path = os.path.join(folder, f)
         if f in errors:
             continue
         if os.path.isfile(full_path):
-            folder_data = pd.read_csv(full_path, delimiter=',')
+            folder_data = pd.read_csv(full_path, dtype = expected_dtypes, delimiter=',')
             folder_data = folder_data.drop_duplicates(subset = 'text', keep = 'first')
             folder_data['folder'] = [str(f)] * len(folder_data)
             if flag == 0:
@@ -25,6 +30,7 @@ def read_data(folder):
             if flag == 1:
                 data = pd.concat([data, folder_data], ignore_index = True, sort = False)
     print("Data was read")
+    # print(data.dtypes)
     return data
 
 def remove_hyperlinks(text):
@@ -113,27 +119,45 @@ def remove_closed_class_words(text):
             filtered.append(word)
     return ' '.join(filtered)
 
-def clean_tweets(data):
+def clean_tweet(tweet, nlp):
+    # print("started cleaning")
+    first = remove_user_ref(tweet)
+    second = remove_tags(first)
+    third = remove_hyperlinks(second)
+    fourth = remove_emoji(third)
+    fifth= remove_keywords(fourth)
+    sixth = remove_numbers(fifth)
+    processed = remove_stopwords(sixth).lower()
+    processed = remove_closed_class_words(processed)
+    lemmatized = []
+    for token in nlp(processed):
+        lemma = token.lemma_
+        if lemma != ' ' and lemma != '_':
+            lemmatized.append(lemma.replace("_", ""))
+    # print("returns lemmatized")
+    return lemmatized
+
+def makde_df_and_raw_file(data):
     nlp = spacy.load("it_core_news_sm")
+
+    doc_path = 'data/SeaNMF/raw_data.txt'
+    f = open(doc_path, 'w')  
+
     all_cleaned = []
-    for i in range(len(data['text'])):
-        tweet = data['text'][i]
-        first = remove_user_ref(tweet)
-        second = remove_tags(first)
-        third = remove_hyperlinks(second)
-        fourth = remove_emoji(third)
-        fifth= remove_keywords(fourth)
-        sixth = remove_numbers(fifth)
-        processed = remove_stopwords(sixth).lower()
-        processed = remove_closed_class_words(processed)
-        lemmatized = []
-        for token in nlp(processed):
-            if token.text != ' ':
-                lemmatized.append(token.lemma_)
+    counter = 0
+    total  = len(data['text'])
+
+    for tweet in data['text']:
+        if counter % 1000 == 0:
+            print("cleaned " + str(counter/total) + "% of tweets")
+        lemmatized = clean_tweet(tweet, nlp)
         all_cleaned.append(lemmatized)
+        if len(lemmatized) > 0 :
+            f.write(' '.join(lemmatized) + '\n')
+        counter += 1
     data['cleaned_text'] = all_cleaned
-    # remove lines where the tweets are empty after preprocessing
     data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
+    f.close()
     return data
 
 def save_data(data, save_path):
@@ -142,10 +166,10 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    data_folder = "data/40wita"
-    # data_folder = "data/dummy"
+    # data_folder = "data/40wita"
+    data_folder = "data/dummy"
     save_path = 'data/data_df.pickle'
     
     data = read_data(data_folder)
-    clean_data = clean_tweets(data)
+    clean_data = makde_df_and_raw_file(data)
     save_data(clean_data,save_path)
