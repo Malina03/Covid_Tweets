@@ -30,7 +30,6 @@ def read_data(folder):
             if flag == 1:
                 data = pd.concat([data, folder_data], ignore_index = True, sort = False)
     print("Data was read")
-    # print(data.dtypes)
     return data
 
 def remove_hyperlinks(text):
@@ -138,26 +137,33 @@ def clean_tweet(tweet, nlp):
     return lemmatized
 
 def makde_df_and_raw_file(data):
+    doc_path = 'data/SeaNMF'
     nlp = spacy.load("it_core_news_sm")
-
-    doc_path = 'data/SeaNMF/raw_data.txt'
-    f = open(doc_path, 'w')  
 
     all_cleaned = []
     counter = 0
     total  = len(data['text'])
 
-    for tweet in data['text']:
-        if counter % 1000 == 0:
-            print("cleaned " + str(counter/total) + "% of tweets")
-        lemmatized = clean_tweet(tweet, nlp)
-        all_cleaned.append(lemmatized)
-        if len(lemmatized) > 0 :
-            f.write(' '.join(lemmatized) + '\n')
-        counter += 1
-    data['cleaned_text'] = all_cleaned
-    data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
-    f.close()
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    # months = {7:'july'}
+
+    for month in months.keys(): 
+        fname = 'raw_data_' + months[month] + '.txt' 
+        path = os.path.join(doc_path, months[month])
+        if not os.path.exists(path):
+            os.makedirs(path)
+        f = open(os.path.join(path ,fname), 'w')  
+        for tweet in data['text'][data['month']==month].values:
+            if counter % 1000 == 0:
+                print("cleaned " + str(counter/total) + "% of tweets")
+            lemmatized = clean_tweet(tweet, nlp)
+            all_cleaned.append(lemmatized)
+            if len(lemmatized) > 0 :
+                f.write(' '.join(lemmatized) + '\n')
+            counter += 1
+        data['cleaned_text'] = all_cleaned
+        data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
+        f.close()
     return data
 
 def save_data(data, save_path):
@@ -166,8 +172,8 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    # data_folder = "data/40wita"
-    data_folder = "data/dummy"
+    data_folder = "data/40wita"
+    # data_folder = "data/dummy"
     save_path = 'data/data_df.pickle'
     
     data = read_data(data_folder)
