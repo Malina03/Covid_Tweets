@@ -119,7 +119,6 @@ def remove_closed_class_words(text):
     return ' '.join(filtered)
 
 def clean_tweet(tweet, nlp):
-    # print("started cleaning")
     first = remove_user_ref(tweet)
     second = remove_tags(first)
     third = remove_hyperlinks(second)
@@ -133,13 +132,11 @@ def clean_tweet(tweet, nlp):
         lemma = token.lemma_
         if lemma != ' ' and lemma != '_':
             lemmatized.append(lemma.replace("_", ""))
-    # print("returns lemmatized")
     return lemmatized
 
 def makde_df_and_raw_file(data):
     doc_path = 'data/SeaNMF'
     nlp = spacy.load("it_core_news_sm")
-
     all_cleaned = []
     counter = 0
     total  = len(data['text'])
@@ -154,16 +151,16 @@ def makde_df_and_raw_file(data):
             os.makedirs(path)
         f = open(os.path.join(path ,fname), 'w')  
         for tweet in data['text'][data['month']==month].values:
-            if counter % 1000 == 0:
-                print("cleaned " + str(counter/total) + "% of tweets")
+            if counter % 10000 == 0:
+                print("cleaned " + str(counter/total)[0:5] + "% of tweets")
             lemmatized = clean_tweet(tweet, nlp)
             all_cleaned.append(lemmatized)
             if len(lemmatized) > 0 :
                 f.write(' '.join(lemmatized) + '\n')
             counter += 1
-        data['cleaned_text'] = all_cleaned
-        data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
-        f.close()
+    data['cleaned_text'] = all_cleaned
+    data = data[data['cleaned_text'].map(lambda d: len(d)) > 0]
+    f.close()
     return data
 
 def save_data(data, save_path):
