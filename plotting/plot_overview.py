@@ -10,6 +10,7 @@ def plot_tweets_per_day(data):
     months = [2,3,4,5,6,7]
     # months = [7]
     for month in months:
+        print("plotting month " + str(month))
         dates = []
         tweets = []
         print("reading month " + str(month))
@@ -53,7 +54,7 @@ def plot_monthly_timeline(dates, tweets, month):
     
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-    ax.plot(dates, tweets)
+    ax.scatter(dates, tweets)
 
     m = str('-0' + str(month) + '-')
     for i in range(len(timeline['date'])): 
