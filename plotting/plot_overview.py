@@ -68,8 +68,8 @@ def plot_monthly_timeline(dates, tweets, month):
     plt.savefig('results/plots/timelines/timeline_' + months[month] + '.png')    
 
 if __name__ == "__main__":
-    # save_path = 'data/data_df.pickle'
-    save_path = 'data/dummy_df.pickle'
+    save_path = 'data/data_df.pickle'
+    # save_path = 'data/dummy_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
     plot_tweets_per_day(data)
