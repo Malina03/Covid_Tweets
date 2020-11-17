@@ -141,8 +141,8 @@ def makde_df_and_raw_file(data):
     counter = 0
     total  = len(data['text'])
 
-    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-    # months = {7:'july'}
+    # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    months = {7:'july'}
 
     for month in months.keys(): 
         fname = 'raw_data_' + months[month] + '.txt' 
@@ -169,9 +169,11 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    data_folder = "data/40wita"
-    # data_folder = "data/dummy"
-    save_path = 'data/data_df.pickle'
+    # data_folder = "data/40wita"
+    # save_path = 'data/data_df.pickle'
+    
+    data_folder = "data/dummy"
+    save_path = 'data/dummy_df.pickle'
     
     data = read_data(data_folder)
     clean_data = makde_df_and_raw_file(data)
