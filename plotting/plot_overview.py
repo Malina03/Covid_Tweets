@@ -9,18 +9,21 @@ import matplotlib.dates as mdates
 def plot_tweets_per_day(data):
     months = [2,3,4,5,6,7]
     # months = [7]
-    dates = []
-    tweets = []
     for month in months:
+        dates = []
+        tweets = []
         print("reading month " + str(month))
         days = data[data['month']==month].day.unique()
         # print(days)
         for day in days: 
             dates.append(datetime.strptime('2020-' + str(month) + '-' + str(day), "%Y-%m-%d").date())
             tweets.append(len(data[(data['month']==month) & (data['day']==day)]['text']))
-    plot_timeline(dates, tweets)
+        plot_monthly_timeline(dates, tweets, month)
     
-def plot_timeline(dates, tweets):
+def plot_monthly_timeline(dates, tweets, month):
+    if len(tweets) == 0:
+        return
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-02-23', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-03-04', "%Y-%m-%d").date(),
@@ -41,29 +44,32 @@ def plot_timeline(dates, tweets):
                         'Theatres, Sporting Venues, Playgrounds open', 'European Tourists Allowed',
                         'Nightclubs reopen','Peak of the Pandemic announced','Decrease of Daily Deaths', 
                         'Decrease of Active Cases'])
+    timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
     
 
-    fig, ax = plt.subplots(figsize=(20, 15))
+    fig, ax = plt.subplots(figsize=(20, 10))
     ylim = max(tweets)
     plt.ylim = (0, ylim)
+    
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-
     ax.plot(dates, tweets)
-    plt.vlines(x=important_dates, ymin=0, ymax=ylim, color = 'r')
 
-    for date, event in zip(important_dates, events):
-        plt.text(date, ylim/2, event, rotation=90, verticalalignment='center')
-    
+    m = str('-0' + str(month) + '-')
+    for i in range(len(timeline['date'])): 
+        if m in timeline['date'][i].strftime("%Y-%m-%d"):
+            plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = 'r')
+            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center')
+        
     ax.set_xlabel("Dates")
     ax.set_ylabel("Number of Tweets")
     ax.set_title("Timeline of the Tweet Corpus")
     plt.gcf().autofmt_xdate()
-    plt.savefig('results/plots/tweets_timeline.png')    
+    plt.savefig('results/plots/timelines/timeline_' + months[month] + '.png')    
 
 if __name__ == "__main__":
-    save_path = 'data/data_df.pickle'
-    # save_path = 'data/dummy_df.pickle'
+    # save_path = 'data/data_df.pickle'
+    save_path = 'data/dummy_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
     plot_tweets_per_day(data)
