@@ -13,7 +13,6 @@ def plot_tweets_per_day(data):
         print("plotting month " + str(month))
         dates = []
         tweets = []
-        print("reading month " + str(month))
         days = data[data['month']==month].day.unique()
         # print(days)
         for day in days: 
@@ -48,7 +47,7 @@ def plot_monthly_timeline(dates, tweets, month):
     timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
     
 
-    fig, ax = plt.subplots(figsize=(20, 10))
+    fig, ax = plt.subplots(figsize=(15, 10))
     ylim = max(tweets)
     plt.ylim = (0, ylim)
     
@@ -60,11 +59,11 @@ def plot_monthly_timeline(dates, tweets, month):
     for i in range(len(timeline['date'])): 
         if m in timeline['date'][i].strftime("%Y-%m-%d"):
             plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = 'r')
-            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center')
+            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=16)
         
-    ax.set_xlabel("Dates")
-    ax.set_ylabel("Number of Tweets")
-    ax.set_title("Timeline of the Tweet Corpus")
+    ax.set_xlabel("Dates", fontsize=18)
+    ax.set_ylabel("Number of Tweets", fontsize=18)
+    ax.set_title("Timeline of the Tweet Corpus", fontsize=20)
     plt.gcf().autofmt_xdate()
     plt.savefig('results/plots/timelines/timeline_' + months[month] + '.png')    
 
