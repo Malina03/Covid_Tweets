@@ -25,7 +25,7 @@ def train(month, topics):
     parser.add_argument('--model', default='seanmf', help='nmf | seanmf')
     parser.add_argument('--max_iter', type=int, default=200, help='max number of iterations')
     parser.add_argument('--n_topics', type=int, default=topics, help='number of topics')
-    parser.add_argument('--alpha', type=float, default=0.1, help='alpha')
+    parser.add_argument('--alpha', type=float, default=1, help='alpha')
     parser.add_argument('--beta', type=float, default=0.0, help='beta')
     parser.add_argument('--max_err', type=float, default=0.1, help='stop criterion')
     parser.add_argument('--fix_seed', type=bool, default=True, help='set random seed 0')
