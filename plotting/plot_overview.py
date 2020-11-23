@@ -13,7 +13,7 @@ def plot_tweets_per_day(data):
         print("plotting month " + str(month))
         dates = []
         tweets = []
-        days = data[data['month']==month].day.unique()
+        days = sorted(data[data['month']==month].day.unique())
         # print(days)
         for day in days: 
             dates.append(datetime.strptime('2020-' + str(month) + '-' + str(day), "%Y-%m-%d").date())
@@ -45,7 +45,6 @@ def plot_monthly_timeline(dates, tweets, month):
                         'Nightclubs reopen','Peak of the Pandemic announced','Decrease of Daily Deaths', 
                         'Decrease of Active Cases'])
     timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
-    
 
     fig, ax = plt.subplots(figsize=(15, 10))
     ylim = max(tweets)
@@ -53,7 +52,8 @@ def plot_monthly_timeline(dates, tweets, month):
     
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-    ax.scatter(dates, tweets)
+    # ax.scatter(dates, tweets)
+    ax.plot(dates, tweets)
 
     m = str('-0' + str(month) + '-')
     for i in range(len(timeline['date'])): 

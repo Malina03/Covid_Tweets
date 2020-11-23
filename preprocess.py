@@ -126,7 +126,7 @@ def clean_tweet(tweet, nlp):
     fifth= remove_keywords(fourth)
     sixth = remove_numbers(fifth)
     processed = remove_stopwords(sixth).lower()
-    processed = remove_closed_class_words(processed)
+    # processed = remove_closed_class_words(processed)
     lemmatized = []
     for token in nlp(processed):
         lemma = token.lemma_

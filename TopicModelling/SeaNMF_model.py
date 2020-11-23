@@ -71,7 +71,8 @@ class SeaNMFL1(object):
                 break
             loss_old = loss
             end_time = time.time()
-            print('Step={}, Loss={}, Time={}s'.format(i, loss, end_time-start_time))
+            if i % 10 == 0:
+                print('Step={}, Loss={}, Time={}s'.format(i, loss, end_time-start_time))
 
     def nmf_solver(self):
         '''
