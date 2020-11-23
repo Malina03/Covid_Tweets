@@ -23,7 +23,7 @@ def train(month, topics):
     parser.add_argument('--corpus_file', default='data/SeaNMF/'+ month + '/doc_term_mat.txt', help='term document matrix file')
     parser.add_argument('--vocab_file', default='data/SeaNMF/'+ month + '/vocab.txt', help='vocab file')
     parser.add_argument('--model', default='seanmf', help='nmf | seanmf')
-    parser.add_argument('--max_iter', type=int, default=100, help='max number of iterations')
+    parser.add_argument('--max_iter', type=int, default=200, help='max number of iterations')
     parser.add_argument('--n_topics', type=int, default=topics, help='number of topics')
     parser.add_argument('--alpha', type=float, default=0.1, help='alpha')
     parser.add_argument('--beta', type=float, default=0.0, help='beta')
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     # n_topics = [30,50,70,90,110,130,150]
     # months = {7:'july'}
-    n_topics = [50] 
+    n_topics = [30] 
     for month in months.values():
         # first pre-process to make the corpus and vocab files
         print("Preprocessing for month " + month)

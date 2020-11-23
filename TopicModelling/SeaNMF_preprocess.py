@@ -43,7 +43,7 @@ def preprocess(month):
     # vocabulary to id
     vocab2id = {itm[1][0]: itm[0] for itm in enumerate(vocab_arr)}
     print('create document term matrix for ' + str(month))
-    data_arr = []
+    # data_arr = []
     fp = open(args.text_file, 'r')
     fout = open(args.corpus_file, 'w')
     for line in fp:
