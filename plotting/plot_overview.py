@@ -26,7 +26,7 @@ def plot_tweets_per_day(data):
     plot_timeline(dt, tw)
 
 def plot_timeline(dates, tweets):
-        if len(tweets) == 0:
+    if len(tweets) == 0:
         return
     months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
