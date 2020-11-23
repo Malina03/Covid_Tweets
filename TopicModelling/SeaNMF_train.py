@@ -10,6 +10,7 @@ import numpy as np
 import os
 import sys
 sys.path.append(os.getcwd())
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 from TopicModelling.SeaNMF_utils import *
 from TopicModelling.SeaNMF_model import *

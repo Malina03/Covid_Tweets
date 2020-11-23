@@ -69,3 +69,4 @@ def visualize_topics(month, topics):
             f.write(str(vocab[w]) + ', ')
         # print()
         f.write('\n')
+    f.close()
