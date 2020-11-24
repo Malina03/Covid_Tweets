@@ -108,7 +108,8 @@ def train(month, topics):
 if __name__ == "__main__":
     # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     # n_topics = [30,50,70,90,110,130,150]
-    months = {4:'april', 5:'may', 6:'june'}
+    # months = {4:'april', 5:'may', 6:'june'}
+    months = {7:'july'}
     n_topics = [30] 
     for month in months.values():
         # first pre-process to make the corpus and vocab files
