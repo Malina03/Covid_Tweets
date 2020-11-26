@@ -9,7 +9,6 @@ import spacy
 import numpy as np
 
 def read_data(folder):
-    errors = ['40wita_2020-05-06.csv.bz2', '40wita_2020-06-21.csv.bz2']
     expected_dtypes = {'id': 'int64', 'text': object, 'language': object, 'screen_name': object, 'date': object, 
                         'timestamp': 'int64', 'year': 'int64', 'month': 'int64', 'day': 'int64', 'hour': 'int64', 'lat': 'float64',
                         'lon': 'float64', 'location_json': object, 'location': object, 'source': object, 'urls': object, 
@@ -18,8 +17,6 @@ def read_data(folder):
     flag = 0
     for f in os.listdir(folder):
         full_path = os.path.join(folder, f)
-        if f in errors:
-            continue
         if os.path.isfile(full_path):
             folder_data = pd.read_csv(full_path, dtype = expected_dtypes, delimiter=',')
             folder_data = folder_data.drop_duplicates(subset = 'text', keep = 'first')
@@ -141,8 +138,8 @@ def makde_df_and_raw_file(data):
     counter = 0
     total  = len(data['text'])
 
-    # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-    months = {7:'july'}
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    # months = {7:'july'}
 
     for month in months.keys(): 
         fname = 'raw_data_' + months[month] + '.txt' 
@@ -169,11 +166,11 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    # data_folder = "data/40wita"
-    # save_path = 'data/data_df.pickle'
+    data_folder = "data/40wita"
+    save_path = 'data/data_df.pickle'
     
-    data_folder = "data/dummy"
-    save_path = 'data/dummy_df.pickle'
+    # data_folder = "data/dummy"
+    # save_path = 'data/dummy_df.pickle'
     
     data = read_data(data_folder)
     clean_data = makde_df_and_raw_file(data)
