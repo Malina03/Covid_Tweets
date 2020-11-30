@@ -13,7 +13,7 @@ def preprocess(month):
     parser.add_argument('--text_file', default='data/SeaNMF/'+ month + '/raw_data_' + month + '.txt', help='input text file')
     parser.add_argument('--corpus_file', default='data/SeaNMF/'+ month + '/doc_term_mat.txt', help='term document matrix file')
     parser.add_argument('--vocab_file', default='data/SeaNMF/'+ month + '/vocab.txt', help='vocab file')
-    parser.add_argument('--vocab_max_size', type=int, default=1000, help='maximum vocabulary size')
+    parser.add_argument('--vocab_max_size', type=int, default=5000, help='maximum vocabulary size')
     parser.add_argument('--vocab_min_count', type=int, default=3, help='minimum frequency of the words')
     args = parser.parse_args()
 
@@ -24,10 +24,11 @@ def preprocess(month):
     for line in fp:
         arr = re.split('\s', line[:-1])
         for wd in arr:
-            try:
-                vocab[wd] += 1
-            except:
-                vocab[wd] = 1
+            if len(wd) > 1: 
+                try:
+                    vocab[wd] += 1
+                except:
+                    vocab[wd] = 1
     fp.close()
     vocab_arr = [[wd, vocab[wd]] for wd in vocab if vocab[wd] > args.vocab_min_count]
     vocab_arr = sorted(vocab_arr, key=lambda k: k[1])[::-1]
