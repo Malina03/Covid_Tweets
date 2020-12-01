@@ -123,11 +123,13 @@ def clean_tweet(tweet, nlp):
     fifth= remove_keywords(fourth)
     sixth = remove_numbers(fifth)
     processed = remove_stopwords(sixth).lower()
-    # processed = remove_closed_class_words(processed)
     lemmatized = []
+    closed_class = ['CONJ', 'CCONJ', 'DET', 'INTJ', 'SCONJ', 'NUM', 'PRON', 'ADP', 'PUNCT', 'SYM', 'SPACE', 'AUX']
     for token in nlp(processed):
         lemma = token.lemma_
-        if lemma != ' ' and lemma != '_':
+        if token.pos_ in closed_class:
+            continue
+        if lemma != '_':
             lemmatized.append(lemma.replace("_", ""))
     return lemmatized
 
