@@ -40,24 +40,24 @@ def train(month, topics):
     if not os.path.exists(tmp_folder):
         os.makedirs(tmp_folder)
 
-    if args.model.lower() == 'nmf':
-        print('read term doc matrix')
-        dt_mat = np.zeros([n_terms, n_docs])
-        for k in range(n_docs):
-            for j in docs[k]:
-                dt_mat[j, k] += 1.0
-        print('term doc matrix done')
-        print('-'*50)
+    # if args.model.lower() == 'nmf':
+    #     print('read term doc matrix')
+    #     dt_mat = np.zeros([n_terms, n_docs])
+    #     for k in range(n_docs):
+    #         for j in docs[k]:
+    #             dt_mat[j, k] += 1.0
+    #     print('term doc matrix done')
+    #     print('-'*50)
         
-        model = NMF(
-            dt_mat, 
-            n_topic=args.n_topics, 
-            max_iter=args.max_iter, 
-            max_err=args.max_err)
+    #     model = NMF(
+    #         dt_mat, 
+    #         n_topic=args.n_topics, 
+    #         max_iter=args.max_iter, 
+    #         max_err=args.max_err)
         
-        model.save_format(
-            Wfile=tmp_folder+'/W.txt',
-            Hfile=tmp_folder+'/H.txt')
+    #     model.save_format(
+    #         Wfile=tmp_folder+'/W.txt',
+    #         Hfile=tmp_folder+'/H.txt')
         
     if args.model.lower() == 'seanmf':
         print('calculate co-occurance matrix')
@@ -100,9 +100,9 @@ def train(month, topics):
             fix_seed=args.fix_seed)
 
         model.save_format(
-            W1file=tmp_folder+'/W.txt',
-            W2file=tmp_folder+'/Wc.txt',
-            Hfile=tmp_folder+'/H.txt')
+            W1file=tmp_folder+'/W_' + str(n_topics) + '.txt',
+            W2file=tmp_folder+'/Wc_' + str(n_topics) + '.txt',
+            Hfile=tmp_folder+'/H_' + str(n_topics) + '.txt')
 
 if __name__ == "__main__":
     # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
