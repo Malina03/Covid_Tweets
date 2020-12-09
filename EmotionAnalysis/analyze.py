@@ -168,7 +168,7 @@ if __name__ == "__main__":
     # print(getAngerEmo('🌈', emotag))
 
     nlp = spacy.load("it_core_news_sm")
-    emoji = Emoji(nlp)
+    emoji = Emoji(nlp, merge_spans=False)
     nlp.add_pipe(emoji, first=True)
 
     pos_tags = {'ADJ': 'A', 'ADV': 'R', 'NOUN':'n', 'VERB': 'v'}
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     length = len(data)
     
     for _, row in data.iterrows():
-        if index % 10 == 0:
+        if index % 10000 == 0:
             print (" {}% of tweets were analysed".format(index/length))  
 
         for token in nlp(row['text']):
