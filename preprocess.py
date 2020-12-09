@@ -94,27 +94,6 @@ def remove_stopwords(text):
 def remove_numbers(text):
     return ''.join(letter for letter in text if not letter.isdigit())
 
-def remove_closed_class_words(text):
-    closed_class = ["mio", "io", "tuo", "tua", "quello", "quella", "questo",
-                    "questa", "tu", "me", "mi", "si", "te", "ti", "suo", "sua",
-                    "lo", "la", "che", "lui", "lei", "noi", "le", "nostro",
-                    "nostra", "ci", "gli", "loro", "voi", "vi", "vostro", "vostra", 
-                    "che", "che cosa", "chi", "dove", "perché", "perche", "come", 
-                    "quando", "quale", "ecco", "qui", "qua", "giu", "giù", "li", "lì",
-                    "là", "la", "fuori", "sotto", "su", "a", "di", "dentro", "sopra",
-                    "da", "con", "lontano", "vicino", "in", "dietro", "per", "davanti", 
-                    "fra", "tra", "ancora", "tanto", "tutto", "poco", "altro", "un altro",
-                    "un", "uno", "una", "niente", "il", "un po", "anche", "pure", "i", "nessuno",
-                    "molto", "lo", "di piu", "di più", "troppo", "del", "della", "dei", "delle",
-                    "e", "così", "ma", "quindi", "allora", "se", "voglio", "è", "ho", "sono", 
-                    "sei", "posso", "vuoi", "ha", "vuole", "hai", "devo", "devi", "puo", "può", 
-                    "deve" ]
-    filtered = []
-    for word in re.split("\W+", text):
-        if (word not in closed_class):
-            filtered.append(word)
-    return ' '.join(filtered)
-
 def clean_tweet(tweet, nlp):
     first = remove_user_ref(tweet)
     second = remove_tags(first)
@@ -168,11 +147,11 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    data_folder = "data/40wita"
-    save_path = 'data/data_df.pickle'
+    # data_folder = "data/40wita"
+    # save_path = 'data/data_df.pickle'
     
-    # data_folder = "data/dummy"
-    # save_path = 'data/dummy_df.pickle'
+    data_folder = "data/dummy"
+    save_path = 'data/dummy_df.pickle'
     
     data = read_data(data_folder)
     clean_data = makde_df_and_raw_file(data)
