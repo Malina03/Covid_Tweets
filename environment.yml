@@ -67,5 +67,6 @@ dependencies:
   - zlib=1.2.11=h516909a_1009
   - pip:
     - it-core-news-sm==2.3.0
+    - spacymoji
 prefix: /home/malina/anaconda3/envs/cov
 
