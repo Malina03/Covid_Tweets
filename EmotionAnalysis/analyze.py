@@ -131,7 +131,7 @@ def getTrustEmo(lemma, lex):
         return 0
 
 if __name__ == "__main__":
-
+    
     save_path_init = 'data/data_df.pickle'
     save_path_emo = 'data/data_emosen_df.pickle'
 
@@ -243,5 +243,4 @@ if __name__ == "__main__":
     data['sadness'] = sadness
     data['surprise'] = surprise
     data['trust'] = trust        
-    
     save_data(data, save_path_emo)

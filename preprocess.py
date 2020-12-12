@@ -147,11 +147,11 @@ def save_data(data, save_path):
 
 
 if __name__ == "__main__":
-    # data_folder = "data/40wita"
-    # save_path = 'data/data_df.pickle'
+    data_folder = "data/40wita"
+    save_path = 'data/data_df.pickle'
     
-    data_folder = "data/dummy"
-    save_path = 'data/dummy_df.pickle'
+    # data_folder = "data/dummy"
+    # save_path = 'data/dummy_df.pickle'
     
     data = read_data(data_folder)
     clean_data = makde_df_and_raw_file(data)
