@@ -2,6 +2,8 @@ import spacy
 from spacymoji import Emoji
 import pickle
 import pandas as pd
+import string
+from nltk.corpus import stopwords 
 
 def save_data(data, save_path):
     with open(save_path, 'wb') as f:
@@ -9,13 +11,7 @@ def save_data(data, save_path):
 
 def getPolarityScore(lemma, lex, pos, score):
     if ((lex['Lemma'] == lemma) & (lex['POS'] == pos)).any():
-        if len(lex[(lex['Lemma'] == lemma) & (lex['POS'] == pos)]['Polarity'].values) > 1 :
-            if score >= 0:
-                return lex[(lex['Lemma'] == lemma) & (lex['POS'] == pos) & lex['Polarity'] >= 0]['Polarity'].mean()
-            else:
-                return lex[(lex['Lemma'] == lemma) & (lex['POS'] == pos) & lex['Polarity'] < 0]['Polarity'].mean()
-        else:
-            return  float(lex[(lex['Lemma'] == lemma) & (lex['POS'] == pos)]['Polarity'].values)
+        return lex[(lex['Lemma'] == lemma) & (lex['POS'] == pos)]['Polarity'].mean()
     else:
         return 0
 
@@ -88,53 +84,54 @@ def getTrust(lemma, lex):
 # Emoticons
 def getAngerEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['anger'][lex['emoji'] == lemma].values)
+        return lex['anger'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getAnticipationEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['anticipation'][lex['emoji'] == lemma].values)
+        return lex['anticipation'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getDisgustEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['disgust'][lex['emoji'] == lemma].values)
+        return lex['disgust'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getFearEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['fear'][lex['emoji'] == lemma].values)
+        return lex['fear'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getJoyEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['joy'][lex['emoji'] == lemma].values)
+        return lex['joy'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getSadnessEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['sadness'][lex['emoji'] == lemma].values)
+        return lex['sadness'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getSurpriseEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['surprise'][lex['emoji'] == lemma].values)
+        return lex['surprise'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 def getTrustEmo(lemma, lex):
     if lemma in lex['emoji'].values:
-        return float(lex['trust'][lex['emoji'] == lemma].values)
+        return lex['trust'][lex['emoji'] == lemma].mean()
     else:
         return 0
 
 if __name__ == "__main__":
+
     save_path_init = 'data/data_df.pickle'
     save_path_emo = 'data/data_emosen_df.pickle'
 
@@ -172,17 +169,29 @@ if __name__ == "__main__":
     nlp.add_pipe(emoji, first=True)
 
     pos_tags = {'ADJ': 'A', 'ADV': 'R', 'NOUN':'n', 'VERB': 'v'}
+    closed_class = ['CONJ', 'CCONJ', 'DET', 'INTJ', 'SCONJ', 'NUM', 'PRON', 'ADP', 'PUNCT', 'SYM', 'SPACE', 'AUX']
+    stop_words = set(stopwords.words('italian')) 
 
     length = len(data)
     
     for _, row in data.iterrows():
-        if index % 10000 == 0:
+
+        if index % 100000 == 0:
             print (" {}% of tweets were analysed".format(index/length))  
 
         for token in nlp(row['text']):
 
+            if not token.text.isalpha():
+                continue
+
             lemma = token.lemma_
             pos = token.pos_
+
+            if pos in closed_class:
+                continue
+            
+            if token.text in stop_words:
+                continue
 
             if token._.is_emoji: 
 
@@ -221,6 +230,7 @@ if __name__ == "__main__":
                 polarity[index] += pos_score[index] - neg_score[index]
             
         index += 1
+    
     data['positivity'] = pos_score
     data['negativity'] = neg_score
     data['polarity'] = polarity
@@ -233,4 +243,5 @@ if __name__ == "__main__":
     data['sadness'] = sadness
     data['surprise'] = surprise
     data['trust'] = trust        
+    
     save_data(data, save_path_emo)
