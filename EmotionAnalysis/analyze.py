@@ -195,11 +195,17 @@ if __name__ == "__main__":
                 surprise[index] += getSurpriseEmo(token.text, emotag) 
                 trust[index] += getTrustEmo(token.text, emotag)
 
-                pos_score[index] += getJoyEmo(token.text, emotag) + getTrustEmo(token.text, emotag)
-                neg_score[index] += getAngerEmo(token.text, emotag) + getDisgustEmo(token.text, emotag) + getFearEmo(token.text, emotag) + getSadnessEmo(token.text, emotag)
-                polarity[index] += getJoyEmo(token.text, emotag) + getTrustEmo(token.text, emotag) - getAngerEmo(token.text, emotag) - getDisgustEmo(token.text, emotag) - getFearEmo(token.text, emotag) - getSadnessEmo(token.text, emotag)
+            else:
 
-                continue
+                anger[index] += getAnger(token.text, nrc)
+                anticipation[index] += getAnticipation(token.text, nrc)
+                disgust[index] += getDisgust(token.text, nrc)
+                fear[index] += getFear(token.text, nrc)	
+                joy[index] += getJoy(token.text, nrc)	
+                sadness[index] += getSadness(token.text, nrc)
+                surprise[index] += getSurprise(token.text, nrc) 
+                trust[index] += getTrust(token.text, nrc)
+
 
             if pos in pos_tags.keys():
 
@@ -209,22 +215,11 @@ if __name__ == "__main__":
                 intensity[index] += getIntensityScore(lemma, sentix, pos_tags[pos])
 
             else:
-                # if there are no entries in sentix for that lemma, 
-                # then compute the pos/neg/pol based on the emotions found
                 
-                pos_score[index] += getJoy(token.text, nrc) + getTrust(token.text, nrc)
-                neg_score[index] += getAnger(token.text, nrc) + getDisgust(token.text, nrc) + getFear(token.text, nrc) + getSadness(token.text, nrc)
-                polarity[index] += getJoy(token.text, nrc) + getTrust(token.text, nrc) - getAnger(token.text, nrc) - getDisgust(token.text, nrc) - getFear(token.text, nrc) - getSadness(token.text, nrc)
-
-            anger[index] += getAnger(token.text, nrc)
-            anticipation[index] += getAnticipation(token.text, nrc)
-            disgust[index] += getDisgust(token.text, nrc)
-            fear[index] += getFear(token.text, nrc)	
-            joy[index] += getJoy(token.text, nrc)	
-            sadness[index] += getSadness(token.text, nrc)
-            surprise[index] += getSurprise(token.text, nrc) 
-            trust[index] += getTrust(token.text, nrc)
-
+                pos_score[index] += joy[index] + trust[index]
+                neg_score[index] += anger[index] + disgust[index] + fear[index] + sadness[index]
+                polarity[index] += pos_score[index] - neg_score[index]
+            
         index += 1
     data['positivity'] = pos_score
     data['negativity'] = neg_score
