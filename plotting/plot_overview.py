@@ -108,8 +108,8 @@ def plot_monthly_timeline(dates, tweets, month):
     m = str('-0' + str(month) + '-')
     for i in range(len(timeline['date'])): 
         if m in timeline['date'][i].strftime("%Y-%m-%d"):
-            plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = 'r')
-            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=16)
+            plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.6')
+            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color='0.6')
         
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
