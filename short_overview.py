@@ -38,8 +38,6 @@ for month in months.keys():
     if min_tweets == 2000000:
         min_tweets = 0
     
-    f.write(f'In {months[month]} there were {orig_tweets} tweets before preprocessing, collected in {orig_days} days and 
-            afterwerds there were {tweets} tweets left, collected in {d_number} days, with a daily average of {avg}, 
-            a minimum of {min_tweets} and a maximum of {max_tweets}\n')
+    f.write(f'In {months[month]} there were {orig_tweets} tweets before preprocessing, collected in {orig_days} days and afterwerds there were {tweets} tweets left, collected in {d_number} days, with a daily average of {avg}, a minimum of {min_tweets} and a maximum of {max_tweets}\n')
 f.write(f'In total there were {total_before_clean} before preprocessring and {total_after_clean} were left afterwards.\n')
 f.close()
