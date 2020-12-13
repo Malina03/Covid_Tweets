@@ -63,7 +63,7 @@ def plot_timeline(dates, tweets):
 
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
-        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i+1], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
         
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Tweet Counts", fontsize=18)
