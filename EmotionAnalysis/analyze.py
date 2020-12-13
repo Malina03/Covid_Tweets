@@ -4,6 +4,7 @@ import pickle
 import pandas as pd
 import string
 from nltk.corpus import stopwords 
+import math 
 
 def save_data(data, save_path):
     with open(save_path, 'wb') as f:
@@ -227,7 +228,8 @@ if __name__ == "__main__":
                 
                 pos_score[index] += joy[index] + trust[index]
                 neg_score[index] += anger[index] + disgust[index] + fear[index] + sadness[index]
-                polarity[index] += pos_score[index] - neg_score[index]
+                intensity[index] += math.sqrt(pos_score[index]**2 + neg_score[index]**2)
+                polarity[index] += 1 - 4 * (math.atan(neg_score[index]/pos_score[index]))
             
         index += 1
     
