@@ -178,7 +178,7 @@ if __name__ == "__main__":
     for _, row in data.iterrows():
 
         if index % 100000 == 0:
-            print (" {}% of tweets were analysed".format(index/length))  
+            print (" {}% of tweets were analysed".format(index/length))
 
         for token in nlp(row['text']):
 
@@ -229,7 +229,7 @@ if __name__ == "__main__":
                 pos_score[index] += joy[index] + trust[index]
                 neg_score[index] += anger[index] + disgust[index] + fear[index] + sadness[index]
                 intensity[index] += math.sqrt(pos_score[index]**2 + neg_score[index]**2)
-                polarity[index] += 1 - 4 * (math.atan(neg_score[index]/pos_score[index]))
+                polarity[index] += pos_score[index]-neg_score[index]
             
         index += 1
     
