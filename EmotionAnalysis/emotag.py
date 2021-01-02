@@ -12,7 +12,7 @@ def save_data(data, save_path):
 
 if __name__ == "__main__":
     
-    save_path_init = 'data/data_emosen_df.pickle'
+    save_path_init = 'data/data_df.pickle'
     save_path_emo = 'data/data_emosen_df.pickle'
 
     # save_path_init = 'data/dummy_df.pickle'
