@@ -10,11 +10,8 @@ def save_data(data, save_path):
 
 if __name__ == "__main__":
     
-    save_path_init = 'data/data_df.pickle'
+    save_path_init = 'data/data_emosen_df.pickle'
     save_path_emo = 'data/data_emosen_df.pickle'
-
-    # save_path_init = 'data/dummy_df.pickle'
-    # save_path_emo = 'data/dummy_emosen_df.pickle'
 
     data = pickle.load(open(save_path_init, 'rb'))
 
@@ -52,10 +49,10 @@ if __name__ == "__main__":
             if pos in pos_tags.keys():
                 
                 if ((sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])).any():
-                    pos_score[index] += sentix[(sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])]['Positive Score'].mean()
-                    neg_score[index] += sentix[(sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])]['Negative Score'].mean()
-                    polarity[index] += sentix[(sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])]['Polarity'].mean()
-                    intensity[index] += sentix[(sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])]['Intensity'].mean()
+                    pos_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Positive Score'].mean()
+                    neg_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Negative Score'].mean()
+                    polarity[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Polarity'].mean()
+                    intensity[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Intensity'].mean()
         index += 1
 
     data['sentix_positivity'] = pos_score
