@@ -1,8 +1,7 @@
 import spacy
+from spacymoji import Emoji
 import pickle
 import pandas as pd
-import string
-from nltk.corpus import stopwords 
 
 def save_data(data, save_path):
     with open(save_path, 'wb') as f:
@@ -14,22 +13,24 @@ if __name__ == "__main__":
     save_path_emo = 'data/data_emosen_df.pickle'
 
     data = pickle.load(open(save_path_init, 'rb'))
-
-    sentix = pickle.load(open('EmotionAnalysis/lexicons/sentix_df.pickle', 'rb'))
+    emotag = pickle.load(open('EmotionAnalysis/lexicons/emotag_df.pickle', 'rb'))
+    
     size = len(data)
 
-    pos_score = [0] * size
-    neg_score = [0] * size
-    polarity = [0] * size
-    intensity = [0] * size
-    
+    anger = [0] * size	
+    anticipation = [0] * size
+    disgust	= [0] * size
+    fear = [0] * size	
+    joy = [0] * size	
+    sadness	= [0] * size
+    surprise = [0] * size 
+    trust = [0] * size
+
     index = 0
 
     nlp = spacy.load("it_core_news_sm")
-
-    pos_tags = {'ADJ': 'A', 'ADV': 'R', 'NOUN':'n', 'VERB': 'v'}
-    closed_class = ['CONJ', 'CCONJ', 'DET', 'INTJ', 'SCONJ', 'NUM', 'PRON', 'ADP', 'PUNCT', 'SYM', 'SPACE', 'AUX']
-    stop_words = set(stopwords.words('italian')) 
+    emoji = Emoji(nlp, merge_spans=False)
+    nlp.add_pipe(emoji, first=True)
 
     length = len(data)
     
@@ -40,23 +41,27 @@ if __name__ == "__main__":
 
         for token in nlp(row['text']):
 
-            if not token.text.isalpha():
-                continue
+            if token._.is_emoji: 
 
-            lemma = token.lemma_
-            pos = token.pos_
+                if token.text in emotag['emoji'].values:
 
-            if pos in pos_tags.keys():
-                
-                if ((sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])).any():
-                    pos_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Positive Score'].mean()
-                    neg_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Negative Score'].mean()
-                    polarity[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Polarity'].mean()
-                    intensity[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Intensity'].mean()
+                    anger[index] += emotag['anger'][emotag['emoji'] == token.text].mean()
+                    anticipation[index] +=  emotag['anticipation'][emotag['emoji'] == token.text].mean()
+                    disgust[index] +=  emotag['disgust'][emotag['emoji'] == token.text].mean()
+                    fear[index] += emotag['fear'][emotag['emoji'] == token.text].mean()	
+                    joy[index] += emotag['joy'][emotag['emoji'] == token.text].mean()
+                    sadness[index] += emotag['sadness'][emotag['emoji'] == token.text].mean()
+                    surprise[index] += emotag['surprise'][emotag['emoji'] == token.text].mean()
+                    trust[index] += emotag['trust'][emotag['emoji'] == token.text].mean()
+            
         index += 1
-
-    data['sentix_positivity'] = pos_score
-    data['sentix_negativity'] = neg_score
-    data['sentix_polarity'] = polarity
-    data['sentix_intensity'] = intensity
+    
+    data['emotag_anger'] = anger
+    data['emotag_anticipation'] = anticipation
+    data['emotag_disgust'] = disgust
+    data['emotag_fear'] = fear
+    data['emotag_joy'] = joy
+    data['emotag_sadness'] = sadness
+    data['emotag_surprise'] = surprise
+    data['emotag_trust'] = trust        
     save_data(data, save_path_emo)
