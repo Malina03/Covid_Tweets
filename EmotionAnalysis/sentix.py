@@ -14,13 +14,13 @@ def save_data(data, save_path):
 
 if __name__ == "__main__":
     
-    # save_path_init = 'data/data_df.pickle'
-    # save_path_emo = 'data/data_emosen_df.pickle'
+    save_path_init = 'data/data_df.pickle'
+    save_path_emo = 'data/data_emosen_df.pickle'
 
-    save_path_init = 'data/dummy_df.pickle'
-    save_path_emo = 'data/dummy_emosen_df.pickle'
+    # save_path_init = 'data/dummy_df.pickle'
+    # save_path_emo = 'data/dummy_emosen_df.pickle'
 
-    data = pickle.load(open(save_path_init, 'rb'))[:100]
+    data = pickle.load(open(save_path_init, 'rb'))
 
     sentix = pickle.load(open('EmotionAnalysis/lexicons/sentix_df.pickle', 'rb'))
     size = len(data)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     
     for _, row in data.iterrows():
 
-        if index % 10 == 0:
+        if index % 100000 == 0:
             print (" {}% of tweets were analysed in {:.2f} seconds".format((index/length),time.time()-start_time))
 
         for token in nlp(row['text']):
@@ -53,7 +53,7 @@ if __name__ == "__main__":
             lemma = (token.lemma_).lower()
             pos = token.pos_
 
-            if pos in closed_class or lemma in stop_words:
+            if lemma in stop_words or pos in closed_class:
                 continue
 
             if pos in pos_tags.keys():
