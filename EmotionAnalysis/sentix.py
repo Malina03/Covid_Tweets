@@ -26,7 +26,7 @@ if __name__ == "__main__":
     polarity = [0] * size
     intensity = [0] * size
     
-   index = 0
+    index = 0
 
     nlp = spacy.load("it_core_news_sm")
 
