@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
             if pos in pos_tags.keys():
                 
-                if ((lex['Lemma'] == lemma) & (lex['POS'] == pos)).any():
+                if ((sentix['Lemma'] == lemma) & (sentix['POS'] == pos_tags[pos])).any():
                     pos_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Positive Score'].mean()
                     neg_score[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Negative Score'].mean()
                     polarity[index] += sentix[(sentix['Lemma'] == lemma) & (lex['POS'] == pos_tags[pos])]['Polarity'].mean()
