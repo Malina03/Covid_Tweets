@@ -2,6 +2,9 @@ import spacy
 from spacymoji import Emoji
 import pickle
 import pandas as pd
+import time
+
+start_time = time.time()
 
 def save_data(data, save_path):
     with open(save_path, 'wb') as f:
@@ -11,6 +14,9 @@ if __name__ == "__main__":
     
     save_path_init = 'data/data_emosen_df.pickle'
     save_path_emo = 'data/data_emosen_df.pickle'
+
+    # save_path_init = 'data/dummy_df.pickle'
+    # save_path_emo = 'data/dummy_emosen_df.pickle'
 
     data = pickle.load(open(save_path_init, 'rb'))
     emotag = pickle.load(open('EmotionAnalysis/lexicons/emotag_df.pickle', 'rb'))
@@ -37,23 +43,25 @@ if __name__ == "__main__":
     for _, row in data.iterrows():
 
         if index % 100000 == 0:
-            print (" {}% of tweets were analysed".format(index/length))
+            print (" {}% of tweets were analysed in {:.2f} seconds".format((index/length),time.time()-start_time))
 
         for token in nlp(row['text']):
 
             if token._.is_emoji: 
 
-                if token.text in emotag['emoji'].values:
+                rows = emotag.loc[emotag['emoji'] == token.text]
+                if rows.empty:
+                    continue
 
-                    anger[index] += emotag['anger'][emotag['emoji'] == token.text].mean()
-                    anticipation[index] +=  emotag['anticipation'][emotag['emoji'] == token.text].mean()
-                    disgust[index] +=  emotag['disgust'][emotag['emoji'] == token.text].mean()
-                    fear[index] += emotag['fear'][emotag['emoji'] == token.text].mean()	
-                    joy[index] += emotag['joy'][emotag['emoji'] == token.text].mean()
-                    sadness[index] += emotag['sadness'][emotag['emoji'] == token.text].mean()
-                    surprise[index] += emotag['surprise'][emotag['emoji'] == token.text].mean()
-                    trust[index] += emotag['trust'][emotag['emoji'] == token.text].mean()
-            
+                anger[index] += rows['anger'].mean()
+                anticipation[index] +=  rows['anticipation'].mean()
+                disgust[index] +=  rows['disgust'].mean()
+                fear[index] += rows['fear'].mean()	
+                joy[index] += rows['joy'].mean()
+                sadness[index] += rows['sadness'].mean()
+                surprise[index] += rows['surprise'].mean()
+                trust[index] += rows['trust'].mean()
+        
         index += 1
     
     data['emotag_anger'] = anger
@@ -65,3 +73,5 @@ if __name__ == "__main__":
     data['emotag_surprise'] = surprise
     data['emotag_trust'] = trust        
     save_data(data, save_path_emo)
+
+    print(time.time() - start_time, "seconds")
