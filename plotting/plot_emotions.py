@@ -193,7 +193,7 @@ def plot_emotions_emotag(emotions, timeline):
     plt.legend()
     plt.savefig('results/plots/timelines/emotag_emotions_timeline.png') 
 
-plot_emotions_mean(emotions, timeline):
+def plot_emotions_mean(emotions, timeline):
        fig, ax = plt.subplots(figsize=(15, 10))
     ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
                 emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
