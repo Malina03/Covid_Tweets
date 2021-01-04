@@ -197,9 +197,9 @@ def plot_emotions_mean(emotions, timeline):
        fig, ax = plt.subplots(figsize=(15, 10))
     ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
                 emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
-                emotions['surprise_emotag'].max(), emotions['trust_emotag'].max(), emotions['anger_nrc'].max(), emotions['anticipation_nrc'].max(), emotions['disgust_nrc'].max(), 
-                emotions['fear_nrc'].max(), emotions['joy_nrc'].max(), emotions['sadness_nrc'].max(), 
-                emotions['surprise_nrc'].max(), emotions['trust_nrc'].max())
+                emotions['surprise_emotag'].max(), emotions['trust_emotag'].max(), emotions['anger_nrc'].max(), 
+                emotions['anticipation_nrc'].max(), emotions['disgust_nrc'].max(), emotions['fear_nrc'].max(), emotions['joy_nrc'].max(),
+                emotions['sadness_nrc'].max(), emotions['surprise_nrc'].max(), emotions['trust_nrc'].max())
     plt.ylim = (0, ylim)
     
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
