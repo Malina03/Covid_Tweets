@@ -32,7 +32,7 @@ def make_emotions_df(data):
     surprise_nrc = [] 
     trust_nrc = []
     for month in months:
-        print("plotting month " + str(month))
+        print("loading month " + str(month))
         days = sorted(data[data['month']==month].day.unique())
         # print(days)
         for day in days: 
@@ -84,6 +84,7 @@ def make_emotions_df(data):
                             columns = ['dates', 'tweets', 'anger_nrc', 'anticipation_nrc', 'disgust_nrc', 'fear_nrc', 'joy_nrc', 
                             'sadness_nrc', 'surprise_nrc', 'trust_nrc', 'anger_emotag', 'anticipation_emotag', 'disgust_emotag', 'fear_emotag', 'joy_emotag', 
                             'sadness_emotag', 'surprise_emotag', 'trust_emotag'])
+    
     return emotions
 
 
@@ -225,6 +226,97 @@ def plot_emotions_mean(emotions, timeline):
     plt.legend()
     plt.savefig('results/plots/timelines/mean_emotions_timeline.png') 
 
+def plot_emotions_nrc_normalized(emotions, timeline):
+    fig, ax = plt.subplots(figsize=(15, 10))
+    # ylim = max(emotions['anger_nrc'].max(), emotions['anticipation_nrc'].max(), emotions['disgust_nrc'].max(), 
+    #             emotions['fear_nrc'].max(), emotions['joy_nrc'].max(), emotions['sadness_nrc'].max(), 
+    #             emotions['surprise_nrc'].max(), emotions['trust_nrc'].max())
+    # plt.ylim = (0, ylim)
+    
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+    # ax.scatter(dates, tweets)
+    plt.plot(emotions['dates'], emotions['anger_nrc'].values/emotions['tweets'].values, color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emotions['anticipation_nrc'].values/emotions['tweets'].values, color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['fear_nrc'].values/emotions['tweets'].values, color = 'tab:olive', label = 'Fear')
+    plt.plot(emotions['dates'], emotions['disgust_nrc'].values/emotions['tweets'].values, color = 'g', label = 'Disgust')
+    plt.plot(emotions['dates'], emotions['joy_nrc'].values/emotions['tweets'].values, color = 'tab:pink', label = 'Joy')
+    plt.plot(emotions['dates'], emotions['sadness_nrc'].values/emotions['tweets'].values, color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions['surprise_nrc'].values/emotions['tweets'].values, color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions['trust_nrc'].values/emotions['tweets'].values, color = 'k', label='Trust')
+
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+           
+    ax.set_xlabel("Dates", fontsize=18)
+    ax.set_ylabel("Emotions", fontsize=18)
+    ax.set_title("Timeline of Emotions detected using the NRC Lexicon", fontsize=20)
+    plt.gcf().autofmt_xdate()
+    plt.legend()
+    plt.savefig('results/plots/timelines/nrc_emotions_timeline_normalized.png') 
+
+def plot_emotions_emotag_normalized(emotions, timeline):
+    fig, ax = plt.subplots(figsize=(15, 10))
+    # ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
+    #             emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
+    #             emotions['surprise_emotag'].max(), emotions['trust_emotag'].max())
+    # plt.ylim = (0, ylim)
+    
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+    # ax.scatter(dates, tweets)
+    plt.plot(emotions['dates'], emotions['anger_emotag'].values/emotions['tweets'].values, color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emotions['anticipation_emotag'].values/emotions['tweets'].values, color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['fear_emotag'].values/emotions['tweets'].values, color = 'tab:olive', label = 'Fear')
+    plt.plot(emotions['dates'], emotions['disgust_emotag'].values/emotions['tweets'].values, color = 'g', label = 'Disgust')
+    plt.plot(emotions['dates'], emotions['joy_emotag'].values/emotions['tweets'].values, color = 'tab:pink', label = 'Joy')
+    plt.plot(emotions['dates'], emotions['sadness_emotag'].values/emotions['tweets'].values, color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions['surprise_emotag'].values/emotions['tweets'].values, color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions['trust_emotag'].values/emotions['tweets'].values, color = 'k', label='Trust')
+
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+           
+    ax.set_xlabel("Dates", fontsize=18)
+    ax.set_ylabel("Emotions", fontsize=18)
+    ax.set_title("Timeline of Emotions detected using the Emotag Lexicon", fontsize=20)
+    plt.gcf().autofmt_xdate()
+    plt.legend()
+    plt.savefig('results/plots/timelines/emotag_emotions_timeline_normalized.png') 
+
+def plot_emotions_mean_normalized(emotions, timeline):
+    fig, ax = plt.subplots(figsize=(15, 10))
+    # ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
+    #             emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
+    #             emotions['surprise_emotag'].max(), emotions['trust_emotag'].max(), emotions['anger_nrc'].max(), 
+    #             emotions['anticipation_nrc'].max(), emotions['disgust_nrc'].max(), emotions['fear_nrc'].max(), emotions['joy_nrc'].max(),
+    #             emotions['sadness_nrc'].max(), emotions['surprise_nrc'].max(), emotions['trust_nrc'].max())
+    # plt.ylim = (0, ylim)
+    
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+    # ax.scatter(dates, tweets)
+    plt.plot(emotions['dates'], emotions[['anger_emotag', 'anger_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emotions[['anticipation_emotag','anticipation_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions[['fear_emotag','fear_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'tab:olive', label = 'Fear')
+    plt.plot(emotions['dates'], emotions[['disgust_emotag','disgust_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'g', label = 'Disgust')
+    plt.plot(emotions['dates'], emotions[['joy_emotag', 'joy_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'tab:pink', label = 'Joy')
+    plt.plot(emotions['dates'], emotions[['sadness_emotag', 'sadness_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions[['surprise_emotag', 'surprise_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions[['trust_emotag', 'trust_nrc']].mean(axis=1).values/emotions['tweets'].values, color = 'k', label='Trust')
+
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+           
+    ax.set_xlabel("Dates", fontsize=18)
+    ax.set_ylabel("Emotions", fontsize=18)
+    ax.set_title("Timeline of Averaged Emotions detected by NRC and Emotag Lexicons", fontsize=20)
+    plt.gcf().autofmt_xdate()
+    plt.legend()
+    plt.savefig('results/plots/timelines/mean_emotions_timeline_normalized.png') 
 
 if __name__ == "__main__":
     # save_path_init = 'data/data_df.pickle'
@@ -239,8 +331,11 @@ if __name__ == "__main__":
     timeline = make_timeline_df()
     print("Made timeline df")
     plot_emotions_emotag(emotions,timeline)
+    plot_emotions_emotag_normalized(emotions,timeline)
     print("Plotted emotag")
     plot_emotions_nrc(emotions, timeline)
+    plot_emotions_nrc_normalized(emotions,timeline)
     print("Plotted nrc")
     plot_emotions_mean(emotions, timeline)
+    plot_emotions_mean_normalized(emotions,timeline)
     print("Plotted mean")
