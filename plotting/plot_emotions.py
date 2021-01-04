@@ -228,9 +228,9 @@ def plot_emotions_mean(emotions, timeline):
 
 if __name__ == "__main__":
     # save_path_init = 'data/data_df.pickle'
-    # save_path_emo = 'data/data_emosen_df.pickle'
+    save_path_emo = 'data/data_emosen_df.pickle'
 
-    save_path_emo = 'data/dummy_emosen_df.pickle'
+    # save_path_emo = 'data/dummy_emosen_df.pickle'
 
     data = pickle.load(open(save_path_emo, 'rb'))
 
