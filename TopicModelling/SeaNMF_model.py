@@ -67,14 +67,14 @@ class SeaNMFL1(object):
         for i in range(self.max_iter):
             self.nmf_solver()
             print("passed solver")
-            loss = self.nmf_loss()
-            print("passed loss")
-            if loss_old-loss < self.max_err:
-                break
-            loss_old = loss
+            # loss = self.nmf_loss()
+            # print("passed loss")
+            # if loss_old-loss < self.max_err:
+            #     break
+            # loss_old = loss
             end_time = time.time()
             if i % 10 == 0:    
-                print('Step={}, Loss={}, Time={}s'.format(i, loss, end_time-start_time))
+                print('Step={}, Time={}s'.format(i, end_time-start_time))
 
     def nmf_solver(self):
         '''
