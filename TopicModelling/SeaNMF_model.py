@@ -120,11 +120,13 @@ class SeaNMFL1(object):
         Calculate loss
         '''
         loss = norm(self.A - np.dot(self.W1, np.transpose(self.H)), 'fro')**2/2.0
+        print("computed loss")
         if self.alpha > 0:
             loss += self.alpha*norm(np.dot(self.W1, np.transpose(self.W2))-self.S, 'fro')**2/2.0
+            print("finished case 1")
         if self.beta > 0:
             loss += self.beta*norm(self.W1, 1)**2/2.0
-        
+            print("finished case 2")
         return loss
     
     def get_lowrank_matrix(self):
