@@ -119,7 +119,9 @@ class SeaNMFL1(object):
         '''
         Calculate loss
         '''
-        loss = norm(self.A - np.dot(self.W1, np.transpose(self.H)), 'fro')**2/2.0
+        intermediate = np.dot(self.W1, np.transpose(self.H))
+        print('computed itermediate')
+        loss = norm(self.A - intermediate, 'fro')**2/2.0
         print("computed loss")
         if self.alpha > 0:
             loss += self.alpha*norm(np.dot(self.W1, np.transpose(self.W2))-self.S, 'fro')**2/2.0
