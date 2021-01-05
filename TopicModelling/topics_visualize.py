@@ -13,7 +13,7 @@ def visualize_topics(month, topics):
     parser = argparse.ArgumentParser()
     parser.add_argument('--corpus_file', default='data/SeaNMF/'+ month + '/doc_term_mat.txt', help='term document matrix file')
     parser.add_argument('--vocab_file', default='data/SeaNMF/'+ month + '/vocab.txt', help='vocab file')
-    parser.add_argument('--par_file', default='results/SeaNMF/weights/'+ month + '/W' + str(topics) + '.txt', help='model results file')
+    parser.add_argument('--par_file', default='results/SeaNMF/weights/'+ month + '/W_' + str(topics) + '.txt', help='model results file')
     opt = parser.parse_args()
 
     topics_path = 'results/SeaNMF/topics/' + month
