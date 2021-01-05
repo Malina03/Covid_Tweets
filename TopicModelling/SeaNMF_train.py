@@ -100,9 +100,9 @@ def train(month, topics):
             fix_seed=args.fix_seed)
 
         model.save_format(
-            W1file=tmp_folder+'/W_' + str(n_topics) + '.txt',
-            W2file=tmp_folder+'/Wc_' + str(n_topics) + '.txt',
-            Hfile=tmp_folder+'/H_' + str(n_topics) + '.txt')
+            W1file=tmp_folder+'/W_' + str(topics) + '.txt',
+            W2file=tmp_folder+'/Wc_' + str(topics) + '.txt',
+            Hfile=tmp_folder+'/H_' + str(topics) + '.txt')
 
 if __name__ == "__main__":
     # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
