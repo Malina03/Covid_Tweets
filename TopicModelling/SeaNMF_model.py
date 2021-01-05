@@ -66,9 +66,9 @@ class SeaNMFL1(object):
         start_time = time.time()
         for i in range(self.max_iter):
             self.nmf_solver()
-            # print("passed solver")
+            print("passed solver")
             loss = self.nmf_loss()
-            # print("passed loss")
+            print("passed loss")
             if loss_old-loss < self.max_err:
                 break
             loss_old = loss
@@ -83,10 +83,15 @@ class SeaNMFL1(object):
         epss = 1e-20
         # Update W1
         AH = np.dot(self.A, self.H)
+        print("computed AH")
         SW2 = np.dot(self.S, self.W2)
+        print("computed SW2")
         HtH = np.dot(self.H.T, self.H)
+        print("computed HtH")
         W2tW2 = np.dot(self.W2.T, self.W2)
+        print("computed W2tW2")
         W11 = self.W1.dot(self.B)
+        print("W11")
 
         for k in range(self.n_topic):
             num0 = HtH[k,k]*self.W1[:,k] + self.alpha*W2tW2[k,k]*self.W1[:,k]
@@ -95,17 +100,20 @@ class SeaNMFL1(object):
             self.W1[:,k] = num0 + num1 - num2
             self.W1[:,k] = np.maximum(self.W1[:,k], epss) # project > 0
             self.W1[:,k] /= norm(self.W1[:,k]) + epss # normalize
+        print("finished loop")
         # Update W2
         W1tW1 = self.W1.T.dot(self.W1)
         StW1 = np.dot(self.S, self.W1)
         for k in range(self.n_topic):
             self.W2[:,k] = self.W2[:,k] + StW1[:,k] - np.dot(self.W2, W1tW1[:,k])
             self.W2[:,k] = np.maximum(self.W2[:,k], epss)
+        print("updated W2")
         #Update H
         AtW1 = np.dot(self.A.T, self.W1)
         for k in range(self.n_topic):
             self.H[:,k] = self.H[:,k] + AtW1[:,k] - np.dot(self.H, W1tW1[:,k])
             self.H[:,k] = np.maximum(self.H[:,k], epss) 
+        print("updated H")
 
     def nmf_loss(self):
         '''
