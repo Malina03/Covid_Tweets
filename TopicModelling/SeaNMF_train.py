@@ -106,8 +106,8 @@ def train(month, topics):
 
 if __name__ == "__main__":
     # months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-    n_topics = [30,50,70,90,110,130,150]
-    months = { 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    n_topics = [30,50,70,90,110]
+    months = {4:'april', 5:'may', 6:'june', 7:'july'}
     # months = {4:'april'}
     # n_topics = [30] 
     for month in months.values():
@@ -117,5 +117,5 @@ if __name__ == "__main__":
         for topics in n_topics:
             print("Training for month " + month + " with {} topics".format(topics))
             train(month, topics)
-            print("Visualization for month " + month + " with {} topics".format(topics))
-            visualize_topics(month, topics)
+            # print("Visualization for month " + month + " with {} topics".format(topics))
+            # visualize_topics(month, topics)
