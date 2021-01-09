@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     # months = {7:'july'}
     # n_topics = [10]
-
+    print(months.values())
     for month in months.values():
         print("in the months loop")
         for topics in n_topics:
