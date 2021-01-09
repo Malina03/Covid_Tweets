@@ -105,9 +105,8 @@ def train(month, topics):
             Hfile=tmp_folder+'/H_' + str(topics) + '.txt')
 
 if __name__ == "__main__":
-    months = {2:'february', 3:'march'}
-    #, 4:'april', 5:'may', 6:'june', 7:'july'}
-    n_topics = [30,50,70,90,110]
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    n_topics = [10, 20]
     # months = { 5:'may', 6:'june', 7:'july'}
     # months = {4:'april'}
     # n_topics = [30] 
