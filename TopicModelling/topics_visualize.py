@@ -62,7 +62,7 @@ def visualize_topics(month, topics):
     for k in index:
         # print('Topic ' + str(k+1) + ': ', end=' ')
         # print(PMI_arr[k], end=' ')
-        f.write('Topic ' + str(k+1) + ': ')
+        f.write('Topic ' + str(k) + ': ')
         f.write('PMI=' + str(PMI_arr[k]) + ' NMPI=' + str(NPMI_arr[k])+ '\n')
         for w in np.argsort(W[:,k])[::-1][:n_topKeyword]:
             # print(vocab[w], end=' ')
@@ -70,3 +70,15 @@ def visualize_topics(month, topics):
         # print()
         f.write('\n')
     f.close()
+
+if __name__ == "__main__":
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    n_topics = [30,50,70,90,110]
+
+    # months = {7:'july'}
+    # n_topics = [10]
+
+    for month in months.values():
+        for topics in n_topics:
+            print("Creating visualization for " + month + " with {} topics".format(topics))
+            visualize_topics(month, topics)
