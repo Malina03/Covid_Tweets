@@ -72,14 +72,14 @@ def visualize_topics(month, topics):
     f.close()
 
 
+if __name__ == "__main__":
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    n_topics = [30,50,70,90,110]
 
-months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-n_topics = [30,50,70,90,110]
+    print(months.values())
 
-print(months.values())
-
-for month in months.values():
-    print("in the months loop")
-    for topics in n_topics:
-        print("Creating visualization for " + month + " with {} topics".format(topics))
-        visualize_topics(month, topics)
+    for month in months.values():
+        print("in the months loop")
+        for topics in n_topics:
+            print("Creating visualization for " + month + " with {} topics".format(topics))
+            visualize_topics(month, topics)

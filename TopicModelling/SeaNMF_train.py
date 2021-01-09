@@ -14,7 +14,6 @@ sys.path.append(os.getcwd())
 from TopicModelling.SeaNMF_utils import *
 from TopicModelling.SeaNMF_model import *
 from TopicModelling.SeaNMF_preprocess import *
-from TopicModelling.topics_visualize import *
 
 
 def train(month, topics):
