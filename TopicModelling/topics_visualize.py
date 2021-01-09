@@ -79,6 +79,7 @@ if __name__ == "__main__":
     # n_topics = [10]
 
     for month in months.values():
+        print("in the months loop")
         for topics in n_topics:
             print("Creating visualization for " + month + " with {} topics".format(topics))
             visualize_topics(month, topics)
