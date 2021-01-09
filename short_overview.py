@@ -2,6 +2,11 @@ import pandas as pd
 import pickle
 from preprocess import read_data
 
+# To add:
+# - average length of tweets
+# - # of tweets containing emotions in language
+# - # of tweets containing emojis
+
 
 data = pickle.load(open('data/data_df.pickle', 'rb'))
 
