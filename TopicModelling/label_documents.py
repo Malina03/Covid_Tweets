@@ -61,7 +61,8 @@ for month in months.values():
             tpcs[i] = np.count_nonzero(labels==i)/len(labels)
             print("Topic {} has {} %".format(topics_july[i], tpcs[i]))
         labels = [topics_july[i] for i in labels]
-    all_labels.extend(labels.tolist())
+    
+    all_labels.extend(labels)
     
 data['topics'] = all_labels
 with open(save_path, 'wb') as f:
