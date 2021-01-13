@@ -190,6 +190,6 @@ if __name__ == "__main__":
         timeline = make_timeline_df()
         plot_emotions_topic(emotions, timeline, topic)
     
-    plot_topic_popularity(popularity, dates, timeline, topics)
+    plot_topic_popularity(popularity, dates, topics)
     plot_topic_polarity(nrc, dates, topics, 'NRC')
     plot_topic_polarity(nrc, dates, topics, 'Emotag')
