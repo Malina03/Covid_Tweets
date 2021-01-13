@@ -75,8 +75,8 @@ def calculate_PMI_NPMI(AA, topKeywordsIndex):
                 else:
                     C1 = np.sum(AA[index1])
                     C2 = np.sum(AA[index2])
-                    PMI.append(np.log(AA[index1,index2]*D1/C1/C2))
-                    NPMI.append((np.log(C1*C2)/np.log(AA[index1,index2]*D1))-1)
+                    PMI.append(np.log2(AA[index1,index2]*D1/C1/C2))
+                    NPMI.append((np.log2(C1*C2)/np.log2(AA[index1,index2]*D1))-1)
                     
     avg_PMI = 2.0*np.sum(PMI)/float(n_tp)/(float(n_tp)-1.0)
     avg_NPMI = 2.0*np.sum(NPMI)/float(n_tp)/(float(n_tp)-1.0)
