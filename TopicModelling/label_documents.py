@@ -31,26 +31,37 @@ for month in months.values():
     labels = H.argmax(axis=1)    
     tpcs = np.zeros(10)
 
-    for i in range(0,10):
+    
+    if month == 'february':
         tpcs[i] = np.count_nonzero(labels==i)/len(labels)
-        if month == 'february':
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_february[i], tpcs[i]))
-            labels = [topics_february[i] for i in labels]
-        if month == 'march':
+        labels = [topics_february[i] for i in labels]
+    if month == 'march':
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_march[i], tpcs[i]))
-            labels = [topics_march[i] for i in labels]
-        if month == 'april':
+        labels = [topics_march[i] for i in labels]
+    if month == 'april':
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_april[i], tpcs[i]))
-            labels = [topics_april[i] for i in labels]
-        if month == 'may':
+        labels = [topics_april[i] for i in labels]
+    if month == 'may':
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_may[i], tpcs[i]))
-            labels = [topics_may[i] for i in labels]
-        if month == 'june':
+        labels = [topics_may[i] for i in labels]
+    if month == 'june':
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_june[i], tpcs[i]))
-            labels = [topics_june[i] for i in labels]
-        if month == 'july':
+        labels = [topics_june[i] for i in labels]
+    if month == 'july':
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        for i in range(0,10):
             print("Topic {} has {} %".format(topics_july[i], tpcs[i]))
-            labels = [topics_july[i] for i in labels]
+        labels = [topics_july[i] for i in labels]
     all_labels.extend(labels.tolist())
     
 data['topics'] = all_labels
