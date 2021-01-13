@@ -201,14 +201,14 @@ if __name__ == "__main__":
 
         emotions = make_emotions_df_topic(data, topic)
         print("Loaded df")
-        # popularity.append(emotions['tweets'])
-        # dates = emotions['dates']
-        # nrc.append(compute_polarity_nrc(emotions))
-        # emotag.append(compute_polarity_emotag(emotions))
+        popularity.append(emotions['tweets'])
+        dates = emotions['dates']
+        nrc.append(compute_polarity_nrc(emotions))
+        emotag.append(compute_polarity_emotag(emotions))
        
         timeline = make_timeline_df()
         plot_emotions_topic(emotions, timeline, topic)
     
-    # plot_topic_popularity(popularity, dates, timeline, topics)
-    # plot_topic_polarity(nrc, dates, topics, 'NRC')
-    # plot_topic_polarity(nrc, dates, topics, 'Emotag')
+    plot_topic_popularity(popularity, dates, timeline, topics)
+    plot_topic_polarity(nrc, dates, topics, 'NRC')
+    plot_topic_polarity(nrc, dates, topics, 'Emotag')
