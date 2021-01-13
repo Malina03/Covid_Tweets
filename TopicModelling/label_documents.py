@@ -30,10 +30,10 @@ for month in months.values():
         break
     labels = H.argmax(axis=1)
     all_labels.extend(labels.tolist())
-    topics = np.zeros(10)
+    tpcs = np.zeros(10)
     for i in range(0,10):
-        topics[i] = np.count_nonzero(labels==i)/len(labels)
-        print("Topic {} has {} %".format(topics_july[i], topics[i]))
+        tpcs[i] = np.count_nonzero(labels==i)/len(labels)
+        print("Topic {} has {} %".format(topics_july[i], tpcs[i]))
     
 data['topics'] = all_labels
 with open(save_path, 'wb') as f:
