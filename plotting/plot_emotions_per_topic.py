@@ -141,7 +141,7 @@ def plot_topic_popularity(popularity, dates, topics):
            
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
-    ax.set_title("Timeline of the Popularity of Topics" fontsize=20)
+    ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     plt.gcf().autofmt_xdate()
     plt.legend()
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
@@ -165,7 +165,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
            
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
-    ax.set_title("Timeline of the Popularity of Topics" fontsize=20)
+    ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     plt.gcf().autofmt_xdate()
     plt.legend()
     plt.savefig('results/plots/timelines/topics/topic_timeline.png') 
@@ -182,7 +182,7 @@ def plot_topic_polarity(polarity, dates, topics, lexicon):
     
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)
-    ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon  fontsize=20)
+    ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     plt.gcf().autofmt_xdate()
     plt.legend()
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
@@ -191,7 +191,7 @@ if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
     data = pickle.load(open(save_path_emo, 'rb'))
-    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy'}
+    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown'}
 
     popularity = []
     nrc = []
