@@ -131,6 +131,9 @@ def plot_topic_popularity(popularity, dates, topics):
         if i.max() > max_pop:
             max_pop = i.max()
     plt.ylim = (0, max_pop)
+
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     for i in topics:
         plt.plot(dates, popularity[i], color=colors[i], label = topics[i])
@@ -146,36 +149,14 @@ def plot_topic_popularity(popularity, dates, topics):
     plt.legend()
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
-def plot_topic_popularity(popularity, dates, timeline, topics):
-    colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
-
-    fig, ax = plt.subplots(figsize=(15, 10))
-    max_pop = 0
-    for i in popularity:
-        if i.max() > max_pop:
-            max_pop = i.max()
-    plt.ylim = (0, max_pop)
-    
-    for i in topics:
-        plt.plot(dates, popularity[i], color=colors[i], label = topics[i])
-    
-    for i in range(len(timeline['date'])): 
-        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
-        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
-           
-    ax.set_xlabel("Dates", fontsize=18)
-    ax.set_ylabel("Number of Tweets", fontsize=18)
-    ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
-    plt.gcf().autofmt_xdate()
-    plt.legend()
-    plt.savefig('results/plots/timelines/topics/topic_timeline.png') 
-
-
 def plot_topic_polarity(polarity, dates, topics, lexicon):
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(15, 10))
     plt.ylim = (-1, 1)
+
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     for i in topics:
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
