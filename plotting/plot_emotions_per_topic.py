@@ -159,7 +159,7 @@ def plot_topic_polarity(polarity, dates, topics, lexicon):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
-    plt.axhlines(y = 0, color = '0.75')
+    plt.hlines(y = 0, color = '0.75')
     for i in topics:
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
     
@@ -189,8 +189,8 @@ if __name__ == "__main__":
         nrc.append(compute_polarity_nrc(emotions))
         emotag.append(compute_polarity_emotag(emotions))
        
-        timeline = make_timeline_df()
-        plot_emotions_topic(emotions, timeline, topic)
+        # timeline = make_timeline_df()
+        # plot_emotions_topic(emotions, timeline, topic)
     
     plot_topic_popularity(popularity, dates, topics)
     plot_topic_polarity(nrc, dates, topics, 'NRC')
