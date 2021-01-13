@@ -43,7 +43,7 @@ for month in months.values():
         labels = [topics_march[i] for i in labels]
     if month == 'april':
         for i in range(0,10):
-            tpcs[i] = np.count_nonzero(labels==i)/len(labels):
+            tpcs[i] = np.count_nonzero(labels==i)/len(labels)
             print("Topic {} has {} %".format(topics_april[i], tpcs[i]))
         labels = [topics_april[i] for i in labels]
     if month == 'may':
