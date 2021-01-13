@@ -130,7 +130,8 @@ def plot_topic_popularity(popularity, dates, topics):
     for i in popularity:
         if i.max() > max_pop:
             max_pop = i.max()
-    plt.ylim = (0, max_pop)
+    ylim = max_pop
+    plt.ylim = (0, ylim)
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
