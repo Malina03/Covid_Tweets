@@ -159,7 +159,7 @@ def plot_topic_polarity(polarity, dates, topics, lexicon):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
-    plt.hlines(y = 0, color = '0.75')
+    plt.hlines(y = 0, xmin = dates[0], xmax = dates[len(dates)-1], color = '0.75')
     for i in topics:
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
     
