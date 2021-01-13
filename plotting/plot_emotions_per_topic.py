@@ -189,8 +189,8 @@ if __name__ == "__main__":
         nrc.append(compute_polarity_nrc(emotions))
         emotag.append(compute_polarity_emotag(emotions))
        
-        # timeline = make_timeline_df()
-        # plot_emotions_topic(emotions, timeline, topic)
+        timeline = make_timeline_df()
+        plot_emotions_topic(emotions, timeline, topic)
     
     plot_topic_popularity(popularity, dates, timeline, topics)
     plot_topic_polarity(nrc, dates, topics, 'NRC')
