@@ -138,9 +138,9 @@ def plot_topic_popularity(popularity, dates, topics):
     for i in topics:
         plt.plot(dates, popularity[i], color=colors[i], label = topics[i])
     
-    # for i in range(len(timeline['date'])): 
-    #     plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
-    #     plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
            
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
@@ -158,6 +158,7 @@ def plot_topic_polarity(polarity, dates, topics, lexicon):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
+    plt.axhlines(y = 0, color = '0.75')
     for i in topics:
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
     
@@ -172,7 +173,7 @@ if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
-    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown'}
+    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown', 7:'Food', 8:'Arts'}
 
     popularity = []
     nrc = []
@@ -192,4 +193,4 @@ if __name__ == "__main__":
     
     plot_topic_popularity(popularity, dates, topics)
     plot_topic_polarity(nrc, dates, topics, 'NRC')
-    plot_topic_polarity(nrc, dates, topics, 'Emotag')
+    plot_topic_polarity(emotag, dates, topics, 'Emotag')
