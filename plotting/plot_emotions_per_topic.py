@@ -96,14 +96,14 @@ def plot_emotions_topic(emotions, timeline, topic):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     # ax.scatter(dates, tweets)
-    plt.plot(emotions['dates'], emotions[['anger_emotag', 'anger_nrc']].sum(axis=1).values, color = 'r', label = "Anger")
-    plt.plot(emotions['dates'], emotions[['anticipation_emotag','anticipation_nrc']].sum(axis=1).values, color = 'tab:orange', label = 'Anticipation')
-    plt.plot(emotions['dates'], emotions[['fear_emotag','fear_nrc']].sum(axis=1).values, color = 'tab:olive', label = 'Fear')
-    plt.plot(emotions['dates'], emotions[['disgust_emotag','disgust_nrc']].sum(axis=1).values, color = 'g', label = 'Disgust')
-    plt.plot(emotions['dates'], emotions[['joy_emotag', 'joy_nrc']].sum(axis=1).values, color = 'tab:pink', label = 'Joy')
-    plt.plot(emotions['dates'], emotions[['sadness_emotag', 'sadness_nrc']].sum(axis=1).values, color = 'b', label = 'Sadness')
-    plt.plot(emotions['dates'], emotions[['surprise_emotag', 'surprise_nrc']].sum(axis=1).values, color = 'tab:purple', label ='Surprise')
-    plt.plot(emotions['dates'], emotions[['trust_emotag', 'trust_nrc']].sum(axis=1).values, color = 'k', label='Trust')
+    plt.plot(emotions['dates'], emotions['anger_emotag'] + emotions['anger_nrc'], color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emotions['anticipation_emotag']+ emotions['anticipation_nrc'], color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['fear_emotag'] + emotions['fear_nrc'], color = 'tab:olive', label = 'Fear')
+    plt.plot(emotions['dates'], emotions['disgust_emotag'] + emotions['disgust_nrc'], color = 'g', label = 'Disgust')
+    plt.plot(emotions['dates'], emotions['joy_emotag'] + emotions['joy_nrc'], color = 'tab:pink', label = 'Joy')
+    plt.plot(emotions['dates'], emotions['sadness_emotag'] + emotions['sadness_nrc'], color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions['surprise_emotag'] + emotions['surprise_nrc'], color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions['trust_emotag'] + emotions['trust_nrc'], color = 'k', label='Trust')
 
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
@@ -201,14 +201,14 @@ if __name__ == "__main__":
 
         emotions = make_emotions_df_topic(data, topic)
         print("Loaded df")
-        popularity.append(emotions['tweets'])
-        dates = emotions['dates']
-        nrc.append(compute_polarity_nrc(emotions))
-        emotag.append(compute_polarity_emotag(emotions))
+        # popularity.append(emotions['tweets'])
+        # dates = emotions['dates']
+        # nrc.append(compute_polarity_nrc(emotions))
+        # emotag.append(compute_polarity_emotag(emotions))
        
         timeline = make_timeline_df()
         plot_emotions_topic(emotions, timeline, topic)
     
-    plot_topic_popularity(popularity, dates, timeline, topics)
-    plot_topic_polarity(nrc, dates, topics, 'NRC')
-    plot_topic_polarity(nrc, dates, topics, 'Emotag')
+    # plot_topic_popularity(popularity, dates, timeline, topics)
+    # plot_topic_polarity(nrc, dates, topics, 'NRC')
+    # plot_topic_polarity(nrc, dates, topics, 'Emotag')
