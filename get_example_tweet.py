@@ -68,7 +68,7 @@ if __name__ == "__main__":
             f.write("Double ear example: \n")
             write_step_by_step(tweet, nrc, emotag, nlp, f)
             i += 1
-        if tweet['nrc_anticipation'] != 0 
+        if tweet['nrc_anticipation'] != 0:
             f.write("Anticipation example: \n")
             write_step_by_step(tweet, nrc, emotag, nlp, f)
             i += 1
