@@ -56,7 +56,7 @@ if __name__ == "__main__":
             f.write("Double joy example: \n")
             write_step_by_step(tweet, nrc, emotag, nlp, f)
             i += 1
-        if tweet['nrc_trust'] != 0 and tweet['emotag_trus']!= 0:
+        if tweet['nrc_trust'] != 0 and tweet['emotag_trust']!= 0:
             f.write("Double trust example: \n")
             write_step_by_step(tweet, nrc, emotag, nlp, f)
             i += 1
