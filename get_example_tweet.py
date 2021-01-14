@@ -6,7 +6,7 @@ from spacymoji import Emoji
 import string
 from nltk.corpus import stopwords 
 
-def write_step_by_step(tweet, nrc, emotag, nlp, f):
+def write_step_by_step(tweet, nrc, emotag, nlp, f, closed_class, stop_words):
     f.write("Original text: " + ' '.join(tweet['text']) + '\n')
     f.write("Cleaned text: " + ' '.join(tweet['cleaned_text']) + '\n')
     f.write('Removed as stopword: ')
@@ -16,8 +16,8 @@ def write_step_by_step(tweet, nrc, emotag, nlp, f):
     f.write('\n')
     f.write('Removed as closed class: ')
     for word in nlp(tweet['text']):
-        lemma = token.lemma_
-        if token.pos_ in closed_class:
+        lemma = word.lemma_
+        if word.pos_ in closed_class:
             f.write(word.text + ', ')
     f.write('\n')
     f.write('Words in NRC: ')
@@ -54,23 +54,23 @@ if __name__ == "__main__":
             break
         if tweet['nrc_joy'] != 0 and tweet['emotag_joy']!= 0:
             f.write("Double joy example: \n")
-            write_step_by_step(tweet, nrc, emotag, nlp, f)
+            write_step_by_step(tweet, nrc, emotag, nlp, f,closed_class, stop_words)
             i += 1
         if tweet['nrc_trust'] != 0 and tweet['emotag_trust']!= 0:
             f.write("Double trust example: \n")
-            write_step_by_step(tweet, nrc, emotag, nlp, f)
+            write_step_by_step(tweet, nrc, emotag, nlp, f,closed_class, stop_words)
             i += 1
         if tweet['nrc_fear'] != 0:
             f.write("Fear example: \n")
-            write_step_by_step(tweet, nrc, emotag, nlp, f)
+            write_step_by_step(tweet, nrc, emotag, nlp, f,closed_class, stop_words)
             i += 1
         if tweet['nrc_fear'] != 0 and tweet['emotag_fear']!=0:
             f.write("Double ear example: \n")
-            write_step_by_step(tweet, nrc, emotag, nlp, f)
+            write_step_by_step(tweet, nrc, emotag, nlp, f,closed_class, stop_words)
             i += 1
         if tweet['nrc_anticipation'] != 0:
             f.write("Anticipation example: \n")
-            write_step_by_step(tweet, nrc, emotag, nlp, f)
+            write_step_by_step(tweet, nrc, emotag, nlp, f,closed_class, stop_words)
             i += 1
     f.close()
             
