@@ -45,7 +45,7 @@ if __name__ == "__main__":
     closed_class = ['CONJ', 'CCONJ', 'DET', 'INTJ', 'SCONJ', 'NUM', 'PRON', 'ADP', 'PUNCT', 'SYM', 'SPACE', 'AUX']
     stop_words = set(stopwords.words('italian')) 
     
-    f = open('results/tweet_examples.txt', 'r')
+    f = open('results/tweet_examples.txt', 'w')
 
     i = 0
 
