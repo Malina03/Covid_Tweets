@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     i = 0
 
-    for tweet in data:
+    for _, tweet in data.iterrows():
         if i == 10:
             break
         if tweet['nrc_joy'] != 0 and tweet['emotag_joy']!= 0:
