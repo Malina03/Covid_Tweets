@@ -7,8 +7,8 @@ import string
 from nltk.corpus import stopwords 
 
 def write_step_by_step(tweet, nrc, emotag, nlp, f):
-    f.write("Original text: " + tweet['text'] + '\n')
-    f.write("Cleaned text: " + tweet['cleaned_text'] + '\n')
+    f.write("Original text: " + ' '.join(tweet['text']) + '\n')
+    f.write("Cleaned text: " + ' '.join(tweet['cleaned_text']) + '\n')
     f.write('Removed as stopword: ')
     for word in tweet['text']:
         if word in stop_words:
