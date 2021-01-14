@@ -10,7 +10,7 @@ def write_step_by_step(tweet, nrc, emotag, nlp, f, closed_class, stop_words):
     f.write("Original text: " + tweet['text'] + '\n')
     f.write("Cleaned text: " + ' '.join(tweet['cleaned_text']) + '\n')
     f.write('Removed as stopword: ')
-    for word in tweet['text']:
+    for word in tweet['text'].split(' '):
         if word in stop_words:
             f.write(word + ', ')
     f.write('\n')
@@ -21,7 +21,7 @@ def write_step_by_step(tweet, nrc, emotag, nlp, f, closed_class, stop_words):
             f.write(word.text + ', ')
     f.write('\n')
     f.write('Words in NRC: ')
-    for word in tweet['text']:
+    for word in tweet['text'].split(' '):
         if word in nrc['Italian (it)']:
             f.write(word + ', ')
     f.write('\n')
