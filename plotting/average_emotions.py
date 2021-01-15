@@ -10,7 +10,7 @@ if __name__ == "__main__":
     topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown', 7:'Food', 8:'Arts'}
     months = {2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July'}
 
-    csv_path = 'results/SeaNMF/metrics_overview.csv'
+    csv_path = 'results/emotions_topics.csv'
 
     row_list = []
     header = ['', 'Anger', 'Anticipation', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise', 'Trust'] 
