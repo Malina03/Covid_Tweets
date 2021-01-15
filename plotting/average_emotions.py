@@ -18,7 +18,7 @@ if __name__ == "__main__":
     for topic in topics.values():
         row_list.append([topic])
         row_list.append(header)
-        for month in month.keys():
+        for month in months.keys():
             row = []
             row.append(months[month])
             tweets = data.loc[(data['month'] == month) & (data['topic']==topic)]
