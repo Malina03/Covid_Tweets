@@ -22,14 +22,14 @@ if __name__ == "__main__":
             row = []
             row.append(months[month])
             tweets = data.loc[(data['month'] == month) & (data['topics']==topic)]
-            row.append(tweets['anger_nrc'].mean() + tweets['anger_emotag'].mean())
-            row.append(tweets['anticipation_nrc'].mean() + tweets['anticipation_emotag'].mean())
-            row.append(tweets['disgust_nrc'].mean() + tweets['disgust_emotag'].mean())
-            row.append(tweets['fear_nrc'].mean() + tweets['fear_emotag'].mean())
-            row.append(tweets['joy_nrc'].mean() + tweets['joy_emotag'].mean())
-            row.append(tweets['sadness_nrc'].mean() + tweets['sadness_emotag'].mean())
-            row.append(tweets['surprise_nrc'].mean() + tweets['surprise_emotag'].mean())
-            row.append(tweets['trust_nrc'].mean() + tweets['trust_emotag'].mean())
+            row.append(tweets['nrc_anger'].mean() + tweets['emotag_anger'].mean())
+            row.append(tweets['nrc_anticipation'].mean() + tweets['emotag_anticipation'].mean())
+            row.append(tweets['nrc_disgust'].mean() + tweets['emotag_disgust'].mean())
+            row.append(tweets['nrc_fear'].mean() + tweets['emotag_fear'].mean())
+            row.append(tweets['nrc_joy'].mean() + tweets['emotag_joy'].mean())
+            row.append(tweets['nrc_sadness'].mean() + tweets['emotag_sadness'].mean())
+            row.append(tweets['nrc_surprise'].mean() + tweets['emotag_surprise'].mean())
+            row.append(tweets['nrc_trust'].mean() + tweets['emotag_trust'].mean())
             row_list.append(row)
         row_list.append([])
 
@@ -38,16 +38,16 @@ if __name__ == "__main__":
         writer.writerows(row_list)
     
     print("Tweets with NRC score:")
-    print(len(data.loc[(data['anger_nrc']!=0) | (data['anticipation_nrc']!=0) | (data['disgust_nrc']!=0) |
-             (data['fear_nrc']!=0) | (data['joy_nrc']!=0) | (data['sadness_nrc']!=0) | 
-             (data['surprise_nrc']!=0) | (data['trust_nrc']!=0)]))
+    print(len(data.loc[(data['nrc_anger']!=0) | (data['nrc_anticipation']!=0) | (data['nrc_disgust']!=0) |
+             (data['nrc_fear']!=0) | (data['nrc_joy']!=0) | (data['nrc_sadness']!=0) | 
+             (data['nrc_surprise']!=0) | (data['nrc_trust']!=0)]))
     print("Tweets with Emotag score:")
-    print(len(data.loc[(data['anger_emotag']!=0) | (data['anticipation_emotag']!=0) | (data['disgust_emotag']!=0) |
-             (data['fear_emotag']!=0) | (data['joy_emotag']!=0) | (data['sadness_emotag']!=0) | 
-             (data['surprise_emotag']!=0) | (data['trust_emotag']!=0)]))
+    print(len(data.loc[(data['emotag_anger']!=0) | (data['emotag_anticipation']!=0) | (data['emotag_disgust']!=0) |
+             (data['emotag_fear']!=0) | (data['emotag_joy']!=0) | (data['emotag_sadness']!=0) | 
+             (data['emotag_surprise']!=0) | (data['emotag_trust']!=0)]))
     print("Tweets woth both scores:")
-    print(len(data.loc[((data['anger_nrc']!=0) | (data['anticipation_nrc']!=0) | (data['disgust_nrc']!=0) |
-             (data['fear_nrc']!=0) | (data['joy_nrc']!=0) | (data['sadness_nrc']!=0) | 
-             (data['surprise_nrc']!=0) | (data['trust_nrc']!=0)) & ((data['anger_emotag']!=0) | (data['anticipation_emotag']!=0) | (data['disgust_emotag']!=0) |
-             (data['fear_emotag']!=0) | (data['joy_emotag']!=0) | (data['sadness_emotag']!=0) | 
-             (data['surprise_emotag']!=0) | (data['trust_emotag']!=0))]))
+    print(len(data.loc[((data['nrc_anger']!=0) | (data['nrc_anticipation']!=0) | (data['nrc_disgust']!=0) |
+             (data['nrc_fear']!=0) | (data['nrc_joy']!=0) | (data['nrc_sadness']!=0) | 
+             (data['nrc_surprise']!=0) | (data['nrc_trust']!=0)) & ((data['emotag_anger']!=0) | (data['emotag_anticipation']!=0) | (data['emotag_disgust']!=0) |
+             (data['emotag_fear']!=0) | (data['emotag_joy']!=0) | (data['emotag_sadness']!=0) | 
+             (data['emotag_surprise']!=0) | (data['emotag_trust']!=0))]))
