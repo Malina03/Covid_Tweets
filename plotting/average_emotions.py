@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import pickle 
 import numpy as np
+import csv
 
 if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
