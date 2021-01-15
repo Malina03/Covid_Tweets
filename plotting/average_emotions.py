@@ -21,7 +21,7 @@ if __name__ == "__main__":
         for month in months.keys():
             row = []
             row.append(months[month])
-            tweets = data.loc[(data['month'] == month) & (data['topic']==topic)]
+            tweets = data.loc[(data['month'] == month) & (data['topics']==topic)]
             row.append(tweets['anger_nrc'].mean() + tweets['anger_emotag'].mean())
             row.append(tweets['anticipation_nrc'].mean() + tweets['anticipation_emotag'].mean())
             row.append(tweets['disgust_nrc'].mean() + tweets['disgust_emotag'].mean())
@@ -36,3 +36,18 @@ if __name__ == "__main__":
     with open(csv_path, 'w', newline='') as file:
         writer = csv.writer(file, delimiter=',')
         writer.writerows(row_list)
+    
+    print("Tweets with NRC score:")
+    print(len(data.loc[(data['anger_nrc']!=0) || (data['anticipation_nrc']!=0) || (data['disgust_nrc']!=0) ||
+             (data['fear_nrc']!=0) || (data['joy_nrc']!=0) || (data['sadness_nrc']!=0) || 
+             (data['surprise_nrc']!=0) || (data['trust_nrc']!=0)]))
+    print("Tweets with Emotag score:")
+    print(len(data.loc[(data['anger_emotag']!=0) || (data['anticipation_emotag']!=0) || (data['disgust_emotag']!=0) ||
+             (data['fear_emotag']!=0) || (data['joy_emotag']!=0) || (data['sadness_emotag']!=0) || 
+             (data['surprise_emotag']!=0) || (data['trust_emotag']!=0)]))
+    print("Tweets woth both scores:")
+    print(len(data.loc[((data['anger_nrc']!=0) || (data['anticipation_nrc']!=0) || (data['disgust_nrc']!=0) ||
+             (data['fear_nrc']!=0) || (data['joy_nrc']!=0) || (data['sadness_nrc']!=0) || 
+             (data['surprise_nrc']!=0) || (data['trust_nrc']!=0)) & ((data['anger_emotag']!=0) || (data['anticipation_emotag']!=0) || (data['disgust_emotag']!=0) ||
+             (data['fear_emotag']!=0) || (data['joy_emotag']!=0) || (data['sadness_emotag']!=0) || 
+             (data['surprise_emotag']!=0) || (data['trust_emotag']!=0))]))
