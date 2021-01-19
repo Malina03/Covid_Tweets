@@ -105,15 +105,18 @@ def plot_emotions_topic(emotions, timeline, topic):
     plt.plot(emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['dates'], emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['surprise_emotag'] + emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['surprise_nrc'], color = 'tab:purple', label ='Surprise')
     plt.plot(emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['dates'], emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_emotag'] + emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_nrc'], color = 'k', label='Trust')
 
+      
+    letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
         plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
            
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     plt.gcf().autofmt_xdate()
-    plt.legend()
+    plt.legend(loc = '0')
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
 
 def compute_polarity_nrc(emotions):
@@ -149,27 +152,32 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend()
+    plt.legend(loc = '0')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(15, 10))
-    plt.ylim = (-1, 1)
-    ylim = 1
+    # plt.ylim = (-1, 1)
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     plt.hlines(y = 0, xmin = dates[0], xmax = dates[len(dates)-1], color = '0.75')
-
+    ylim = -10
+    ymin = 10
     for i in topics.keys():
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
+        if max(polarity[i]) > ylim :
+            ylim = max(polarity[i])
+        if min(polarity[i]) < ymin :
+            ymin = min(polarity[i])
+    
     
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
     for i in range(len(timeline['date'])): 
-        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.vlines(x=timeline['date'][i], ymin=ymin, ymax=ylim, color = '0.75')
         # plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
         plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
 
@@ -177,7 +185,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend()
+    plt.legend(loc='0')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
 if __name__ == "__main__":
