@@ -20,7 +20,7 @@ def plot_tweets_per_day(data):
         for day in days: 
             dates.append(datetime.strptime('2020-' + str(month) + '-' + str(day), "%Y-%m-%d").date())
             tweets.append(len(data[(data['month']==month) & (data['day']==day)]['text']))
-        plot_monthly_timeline(dates, tweets, month)
+        # plot_monthly_timeline(dates, tweets, month)
         dt = dt + dates
         tw = tw + tweets
     plot_timeline(dt, tw)
