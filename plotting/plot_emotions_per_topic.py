@@ -157,6 +157,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
 
     fig, ax = plt.subplots(figsize=(15, 10))
     plt.ylim = (-1, 1)
+    ylim = 1
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
