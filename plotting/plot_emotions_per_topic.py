@@ -136,7 +136,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
-    for i in topics:
+    for i in topics.keys():
         plt.plot(dates, popularity[i], color=colors[i], label = topics[i])
     
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
@@ -163,7 +163,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     
     plt.hlines(y = 0, xmin = dates[0], xmax = dates[len(dates)-1], color = '0.75')
 
-    for i in topics:
+    for i in topics.keys():
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
     
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
-    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown', 7:'Food', 8:'Arts'}
+    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Sports', 3:'Politics', 4:'Economy', 5:'Lockdown', 6:'Food', 7:'Arts'}
 
     popularity = []
     nrc = []
