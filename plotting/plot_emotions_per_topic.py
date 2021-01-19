@@ -174,7 +174,7 @@ if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
-    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Impact on Workers', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown', 7:'Food', 8:'Arts'}
+    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 3:'Sports', 4:'Politics', 5:'Economy', 6:'Lockdown', 7:'Food', 8:'Arts'}
 
     popularity = []
     nrc = []
