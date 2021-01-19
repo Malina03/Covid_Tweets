@@ -74,13 +74,12 @@ def plot_timeline(dates, tweets):
 def plot_monthly_timeline(dates, tweets, month):
     if len(tweets) == 0:
         return
-    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-02-23', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-03-04', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-08', "%Y-%m-%d").date(),
+                                # datetime.strptime('2020-03-08', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-09', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
+                                # datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-22', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-05-04', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-06-15', "%Y-%m-%d").date(), 
@@ -89,14 +88,13 @@ def plot_monthly_timeline(dates, tweets, month):
                                 datetime.strptime('2020-03-31', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-04-05', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-04-20', "%Y-%m-%d").date()])
-    events = np.array(['Third confirmed case', 'Venice Carnival is cancelled', 'Schools and Universities close', 
-                        'Lockdown in Northern Italy', 'Nationwide Lockdown', 'Restaurants and Bars close',
-                        'Nonessential Factories close', 'Restrictions are relaxed',
-                        'Theatres, Sporting Venues, Playgrounds open', 'European Tourists Allowed',
-                        'Nightclubs reopen','Peak of the Pandemic announced','Decrease of Daily Deaths', 
-                        'Decrease of Active Cases'])
+    events = np.array(['20th Feb: Third confirmed case', '23rd Feb: Venice Carnival is cancelled', '4th March: Schools and Universities close', 
+                        '9th March: Nationwide Lockdown', 
+                        '22nd March: Nonessential Factories close', '4th May: Restrictions are relaxed',
+                        '15th June: Theatres, Sport Venues, Playgrounds open', '2nd July: European Tourists Allowed',
+                        '14th July: Nightclubs reopen','31st March: Peak of the Pandemic announced','5th April: Decrease of Daily Deaths', 
+                        '20th April: Decrease of Active Cases'])
     timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
-
     fig, ax = plt.subplots(figsize=(15, 10))
     ylim = max(tweets)
     plt.ylim = (0, ylim)
