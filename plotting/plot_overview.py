@@ -64,58 +64,58 @@ def plot_timeline(dates, tweets):
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
         plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
-        
+        plt.text(timeline['date'][i], ylim - ylim*10/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.6')
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Tweet Counts", fontsize=18)
     ax.set_title("Timeline of the 40wita Corpus", fontsize=20)
     plt.gcf().autofmt_xdate()
     plt.savefig('results/plots/timelines/complete_timeline.png') 
     
-def plot_monthly_timeline(dates, tweets, month):
-    if len(tweets) == 0:
-        return
-    important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
-                                datetime.strptime('2020-02-23', "%Y-%m-%d").date(), 
-                                datetime.strptime('2020-03-04', "%Y-%m-%d").date(),
-                                # datetime.strptime('2020-03-08', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-09', "%Y-%m-%d").date(),
-                                # datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-22', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-05-04', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-06-15', "%Y-%m-%d").date(), 
-                                datetime.strptime('2020-07-02', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-07-14', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-31', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-04-05', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-04-20', "%Y-%m-%d").date()])
-    events = np.array(['20th Feb: Third confirmed case', '23rd Feb: Venice Carnival is cancelled', '4th March: Schools and Universities close', 
-                        '9th March: Nationwide Lockdown', 
-                        '22nd March: Nonessential Factories close', '4th May: Restrictions are relaxed',
-                        '15th June: Theatres, Sport Venues, Playgrounds open', '2nd July: European Tourists Allowed',
-                        '14th July: Nightclubs reopen','31st March: Peak of the Pandemic announced','5th April: Decrease of Daily Deaths', 
-                        '20th April: Decrease of Active Cases'])
-    timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
-    fig, ax = plt.subplots(figsize=(15, 10))
-    ylim = max(tweets)
-    plt.ylim = (0, ylim)
+# def plot_monthly_timeline(dates, tweets, month):
+#     if len(tweets) == 0:
+#         return
+#     important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
+#                                 datetime.strptime('2020-02-23', "%Y-%m-%d").date(), 
+#                                 datetime.strptime('2020-03-04', "%Y-%m-%d").date(),
+#                                 # datetime.strptime('2020-03-08', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-03-09', "%Y-%m-%d").date(),
+#                                 # datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-03-22', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-05-04', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-06-15', "%Y-%m-%d").date(), 
+#                                 datetime.strptime('2020-07-02', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-07-14', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-03-31', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-04-05', "%Y-%m-%d").date(),
+#                                 datetime.strptime('2020-04-20', "%Y-%m-%d").date()])
+#     events = np.array(['20th Feb: Third confirmed case', '23rd Feb: Venice Carnival is cancelled', '4th March: Schools and Universities close', 
+#                         '9th March: Nationwide Lockdown', 
+#                         '22nd March: Nonessential Factories close', '4th May: Restrictions are relaxed',
+#                         '15th June: Theatres, Sport Venues, Playgrounds open', '2nd July: European Tourists Allowed',
+#                         '14th July: Nightclubs reopen','31st March: Peak of the Pandemic announced','5th April: Decrease of Daily Deaths', 
+#                         '20th April: Decrease of Active Cases'])
+#     timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
+#     fig, ax = plt.subplots(figsize=(15, 10))
+#     ylim = max(tweets)
+#     plt.ylim = (0, ylim)
     
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
-    plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-    # ax.scatter(dates, tweets)
-    ax.plot(dates, tweets)
+#     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+#     plt.gca().xaxis.set_major_locator(mdates.DayLocator())
+#     # ax.scatter(dates, tweets)
+#     ax.plot(dates, tweets)
 
-    m = str('-0' + str(month) + '-')
-    letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
-    for i in range(len(timeline['date'])): 
-        if m in timeline['date'][i].strftime("%Y-%m-%d"):
-            plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
-            plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color='0.6')
-            plt.text(timeline['date'][i], ylim - ylim*10/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.6')
-    ax.set_xlabel("Dates", fontsize=18)
-    ax.set_ylabel("Number of Tweets", fontsize=18)
-    ax.set_title("Timeline of the Tweet Corpus", fontsize=20)
-    plt.gcf().autofmt_xdate()
-    plt.savefig('results/plots/timelines/timeline_' + months[month] + '.png')    
+#     m = str('-0' + str(month) + '-')
+#     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
+#     for i in range(len(timeline['date'])): 
+#         if m in timeline['date'][i].strftime("%Y-%m-%d"):
+#             plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+#             plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color='0.6')
+#             plt.text(timeline['date'][i], ylim - ylim*10/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.6')
+#     ax.set_xlabel("Dates", fontsize=18)
+#     ax.set_ylabel("Number of Tweets", fontsize=18)
+#     ax.set_title("Timeline of the Tweet Corpus", fontsize=20)
+#     plt.gcf().autofmt_xdate()
+#     plt.savefig('results/plots/timelines/timeline_' + months[month] + '.png')    
 
 if __name__ == "__main__":
     save_path = 'data/data_df.pickle'
