@@ -139,18 +139,20 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     for i in topics:
         plt.plot(dates, popularity[i], color=colors[i], label = topics[i])
     
+    letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
         plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
-           
+        plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
+       
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
-    plt.gcf().autofmt_xdate()
+    plt.gcf().autofmt_dxate()
     plt.legend()
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
-def plot_topic_polarity(polarity, dates, topics, lexicon):
+def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(15, 10))
@@ -160,9 +162,16 @@ def plot_topic_polarity(polarity, dates, topics, lexicon):
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     plt.hlines(y = 0, xmin = dates[0], xmax = dates[len(dates)-1], color = '0.75')
+
     for i in topics:
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
     
+    letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        # plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
+
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
