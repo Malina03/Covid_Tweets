@@ -186,12 +186,13 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     plt.legend(loc='best')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
-def print_topic_popularity(emotions, data, topic):
+def print_topic_popularity(data, topics):
     months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-    print(topic)
     for month in months.keys():
-        if topic in emotions[emotions['month']==month]['topics']:
-            print(month + " " + str(len(emotions[(emotions['month']==month) & (emotions['topics']==topic)]['tweets'])/len(data[data['month']==month]['tweets'])))
+        print(month)
+        for topic in topics.values():
+            if topic in data[data['month']==month]['topics']:
+                print(month + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
             
 
 if __name__ == "__main__":
@@ -204,13 +205,13 @@ if __name__ == "__main__":
     nrc = []
     emotag = []
 
+    print_topic_popularity(data, topics)
+
     for topic in topics.values():
 
         emotions = make_emotions_df_topic(data, topic)
         print("Loaded df")
         # popularity.append(emotions['tweets'])
-        print_topic_popularity(emotions, data, topic)
-        
         # dates = emotions['dates']
         # nrc.append(compute_polarity_nrc(emotions))
         # emotag.append(compute_polarity_emotag(emotions))
