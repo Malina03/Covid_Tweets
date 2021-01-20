@@ -187,8 +187,9 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
 def print_topic_popularity(data, topics):
-    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
-    for month in months.keys():
+    print("entered function")
+    months = [2,3,4,5,6,7]
+    for month in months:
         print(month)
         for topic in topics.values:
             if topic in data[data['month']==month]['topics']:
