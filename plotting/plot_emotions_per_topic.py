@@ -116,7 +116,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     plt.gcf().autofmt_xdate()
-    plt.legend(loc = '0')
+    plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
 
 def compute_polarity_nrc(emotions):
@@ -152,7 +152,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend(loc = '0')
+    plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
