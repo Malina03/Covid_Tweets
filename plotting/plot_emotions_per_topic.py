@@ -190,8 +190,8 @@ def print_topic_popularity(data, topics):
     months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
     for month in months.keys():
         print(month)
-        for topic in topics.values():
-            if topic in data[data['month']==month]['topics'].unique():
+        for topic in topics.values:
+            if topic in data[data['month']==month]['topics']:
                 print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
             
 
