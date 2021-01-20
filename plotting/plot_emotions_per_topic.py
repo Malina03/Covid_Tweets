@@ -64,9 +64,7 @@ def make_timeline_df():
     important_dates = np.array([datetime.strptime('2020-02-20', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-02-23', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-03-04', "%Y-%m-%d").date(),
-                                # datetime.strptime('2020-03-08', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-09', "%Y-%m-%d").date(),
-                                # datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-22', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-31', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-04-05', "%Y-%m-%d").date(),
@@ -150,7 +148,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
-    # plt.gcf().autofmt_dxate()
+    plt.gcf().autofmt_dxate()
     plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
@@ -183,7 +181,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
-    # plt.gcf().autofmt_xdate()
+    plt.gcf().autofmt_xdate()
     plt.legend(loc='best')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
