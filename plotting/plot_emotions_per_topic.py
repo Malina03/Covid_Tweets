@@ -185,7 +185,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend(loc='0')
+    plt.legend(loc='best')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
 if __name__ == "__main__":
