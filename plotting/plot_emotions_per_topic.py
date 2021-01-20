@@ -191,8 +191,8 @@ def print_topic_popularity(data, topics):
     for month in months.keys():
         print(month)
         for topic in topics.values():
-            if topic in data[data['month']==month]['topics']:
-                print(month + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
+            if topic in data[data['month']==month]['topics'].unique():
+                print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
             
 
 if __name__ == "__main__":
@@ -207,10 +207,10 @@ if __name__ == "__main__":
 
     print_topic_popularity(data, topics)
 
-    for topic in topics.values():
+    # for topic in topics.values():
 
-        emotions = make_emotions_df_topic(data, topic)
-        print("Loaded df")
+    #     emotions = make_emotions_df_topic(data, topic)
+    #     print("Loaded df")
         # popularity.append(emotions['tweets'])
         # dates = emotions['dates']
         # nrc.append(compute_polarity_nrc(emotions))
