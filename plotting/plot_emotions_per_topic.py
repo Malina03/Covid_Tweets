@@ -175,8 +175,8 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
     for i in range(len(timeline['date'])): 
         plt.vlines(x=timeline['date'][i], ymin=ymin, ymax=ymax, color = '0.75')
-        plt.text(timeline['date'][i], ymax/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
-        plt.text(timeline['date'][i], ymax - ymax/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
+        plt.text(timeline['date'][i], (ymin-ymax)/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i], (ymin-ymax) - (ymin-ymax)/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
 
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)

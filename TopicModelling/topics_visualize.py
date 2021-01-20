@@ -43,7 +43,7 @@ def visualize_topics(month, topics):
 
     PMI_arr = []
     NPMI_arr = []
-    n_topKeyword = 10
+    n_topKeyword = 20
     for k in range(n_topic):
         topKeywordsIndex = W[:,k].argsort()[::-1][:n_topKeyword]
         pmi, npmi = calculate_PMI_NPMI(dt_mat, topKeywordsIndex) 
