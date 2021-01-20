@@ -1,7 +1,0 @@
-data/*
-data/*.pickle
-data/*.zip
-results/SeaNMF/*
-results/SeaNMF/*.txt
-results/plots/*
-results/*
