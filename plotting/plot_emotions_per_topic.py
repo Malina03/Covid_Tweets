@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.dates as mdates
 
+
 def make_emotions_df_topic(data, topic):
     months = [2,3,4,5,6,7]
     dates = []
@@ -185,6 +186,15 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     plt.legend(loc='best')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
+def print_topic_popularity(emotions, data, topics):
+    months = {2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 7:'july'}
+    for month in months.keys():
+        print(month)
+        for topic in topics.values():
+            if topic in emotions[emotions['month']==month]['topics']:
+                print(topic + " " + str(len(emotions[(emotions['month']==month) & (emotions['topics']==topic)]['tweets'])/len(data[data['month']==month]['tweets'])))
+            
+
 if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
@@ -199,14 +209,16 @@ if __name__ == "__main__":
 
         emotions = make_emotions_df_topic(data, topic)
         print("Loaded df")
-        popularity.append(emotions['tweets'])
-        dates = emotions['dates']
-        nrc.append(compute_polarity_nrc(emotions))
-        emotag.append(compute_polarity_emotag(emotions))
+        # popularity.append(emotions['tweets'])
+        print_topic_popularity(emotions, data, topics)
+        
+        # dates = emotions['dates']
+        # nrc.append(compute_polarity_nrc(emotions))
+        # emotag.append(compute_polarity_emotag(emotions))
        
-        timeline = make_timeline_df()
+        # timeline = make_timeline_df()
         # plot_emotions_topic(emotions, timeline, topic)
     
     # plot_topic_popularity(popularity, dates, timeline, topics)
-    plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
-    plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
+    # plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
+    # plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
