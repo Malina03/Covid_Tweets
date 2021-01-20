@@ -158,27 +158,27 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(15, 10))
-    # plt.ylim = (-1, 1)
+    
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     plt.hlines(y = 0, xmin = dates[0], xmax = dates[len(dates)-1], color = '0.75')
-    ylim = -10
+    ymax = -10
     ymin = 10
     for i in topics.keys():
         plt.plot(dates, polarity[i], color=colors[i], label = topics[i])
-        if max(polarity[i]) > ylim :
-            ylim = max(polarity[i])
+        if max(polarity[i]) > ymax :
+            ymax = max(polarity[i])
         if min(polarity[i]) < ymin :
             ymin = min(polarity[i])
-    
+    plt.ylim = (ymin, ymax)
     
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
     for i in range(len(timeline['date'])): 
-        plt.vlines(x=timeline['date'][i], ymin=ymin, ymax=ylim, color = '0.75')
-        # plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
-        plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
+        plt.vlines(x=timeline['date'][i], ymin=ymin, ymax=ymax, color = '0.75')
+        plt.text(timeline['date'][i], ymax/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i], ymax - ymax/100, letters[i], rotation = 90, verticalalignment='center', fontsize=15, color='0.75')
 
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)
@@ -207,8 +207,8 @@ if __name__ == "__main__":
         emotag.append(compute_polarity_emotag(emotions))
        
         timeline = make_timeline_df()
-        plot_emotions_topic(emotions, timeline, topic)
+        # plot_emotions_topic(emotions, timeline, topic)
     
-    plot_topic_popularity(popularity, dates, timeline, topics)
+    # plot_topic_popularity(popularity, dates, timeline, topics)
     plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
     plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
