@@ -68,9 +68,9 @@ def make_timeline_df():
                                 datetime.strptime('2020-03-09', "%Y-%m-%d").date(),
                                 # datetime.strptime('2020-03-11', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-03-22', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-03-31', "%Y-%m-%d").date()
+                                datetime.strptime('2020-03-31', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-04-05', "%Y-%m-%d").date(),
-                                datetime.strptime('2020-04-20', "%Y-%m-%d").date()
+                                datetime.strptime('2020-04-20', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-05-04', "%Y-%m-%d").date(),
                                 datetime.strptime('2020-06-15', "%Y-%m-%d").date(), 
                                 datetime.strptime('2020-07-02', "%Y-%m-%d").date(),
