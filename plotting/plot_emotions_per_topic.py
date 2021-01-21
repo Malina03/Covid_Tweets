@@ -191,7 +191,7 @@ def print_topic_popularity(data, topics):
     months = [2,3,4,5,6,7]
     for month in months:
         print(month)
-        for topic in topics.values:
+        for topic in topics.values():
             if topic in data[data['month']==month]['topics'].values:
                 print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
             
