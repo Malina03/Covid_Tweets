@@ -224,7 +224,18 @@ def plot_emotion_dist(data, topic):
             joy.append(len(rows[(rows['emotag_joy'] > 0) | (rows['nrc_joy'] > 0)])/tweets)	
             sadness.append(len(rows[(rows['emotag_sadness'] > 0) | (rows['nrc_sadness'] > 0)])/tweets)
             surprise.append(len(rows[(rows['emotag_surprise'] > 0) | (rows['nrc_surprise'] > 0)])/tweets) 
+            trust.append(len(rows[(rows['emotag_trust'] > 0) | (rows['nrc_trust'] > 0)])/tweets) 
             del rows
+
+    # print(len(dates))
+    # print(len(anger))
+    # print((len(anticipation)))
+    # print(len(disgust))
+    # print(len(fear))
+    # print(len(joy))
+    # print(len(sadness))
+    # print(len(surprise))
+
 
     emotions = pd.DataFrame({'dates':dates, 'anger':anger, 'anticipation':anticipation,
                             'disgust':disgust, 'fear':fear, 'joy':joy, 'sadness':sadness,
