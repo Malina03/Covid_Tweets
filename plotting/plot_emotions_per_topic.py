@@ -255,7 +255,7 @@ def plot_emotion_dist(data, topic):
     plt.plot(emotions['dates'], emotions['anticipation'], color = 'tab:orange', label = 'Anticipation')
     plt.plot(emotions['dates'], emotions['fear'], color = 'tab:olive', label = 'Fear')
     plt.plot(emotions['dates'], emotions['disgust'], color = 'g', label = 'Disgust')
-    plt.plot(emotions['dates'], emotions['joy'], label = 'Joy')
+    plt.plot(emotions['dates'], emotions['joy'], color = 'tab:pink', label = 'Joy')
     plt.plot(emotions['dates'], emotions['sadness'], color = 'b', label = 'Sadness')
     plt.plot(emotions['dates'], emotions['surprise'], color = 'tab:purple', label ='Surprise')
     plt.plot(emotions['dates'], emotions['trust'], color = 'k', label='Trust')
