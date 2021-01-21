@@ -215,7 +215,7 @@ def plot_emotion_dist(data, topic):
         # print(days)
         for day in days: 
             dates.append(datetime.strptime('2020-' + str(month) + '-' + str(day), "%Y-%m-%d").date())
-            rows = data.iloc[(data['month']==month) & (data['day']==day) & (data['topics']==topic)]
+            rows = data.loc[(data['month']==month) & (data['day']==day) & (data['topics']==topic)]
             tweets=len(rows['text'])
             anger.append(len(rows[(rows['emotag_anger'] > 0) | (rows['nrc_anger'] > 0)])/tweets)	
             anticipation.append(len(rows[(rows['emotag_anticipation'] > 0) | (rows['nrc_anticipation'] > 0)])/tweets)
