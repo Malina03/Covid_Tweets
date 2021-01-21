@@ -252,7 +252,7 @@ def plot_emotion_dist(data, topic):
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
     plt.plot(emotions['dates'], emotions['anger'], color = 'r', label = "Anger")
-    plt.plot(emotions['dates'], emortions['anticipation'], color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['anticipation'], color = 'tab:orange', label = 'Anticipation')
     plt.plot(emotions['dates'], emotions['fear'], color = 'tab:olive', label = 'Fear')
     plt.plot(emotions['dates'], emotions['disgust'], color = 'g', label = 'Disgust')
     plt.plot(emotions['dates'], emotions['joy'], label = 'Joy')
