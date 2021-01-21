@@ -234,7 +234,7 @@ def plot_emotion_dist(data, topic):
     fig, ax = plt.subplots(figsize=(15, 10))
     ylim =  max(emotions['anger'].max(), emotions['anticipation'].max(), emotions['disgust'].max(), 
             emotions['fear'].max(), emotions['joy'].max(), emotions['sadness'].max(), 
-            emotions['surprise'].max(), emotions['trust'].max()))
+            emotions['surprise'].max(), emotions['trust'].max())
     plt.ylim = (0, ylim)
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
