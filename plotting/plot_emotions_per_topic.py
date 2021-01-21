@@ -192,7 +192,7 @@ def print_topic_popularity(data, topics):
     for month in months:
         print(month)
         for topic in topics.values:
-            if topic in data[data['month']==month]['topics']:
+            if topic in data[data['month']==month]['topics'].values:
                 print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
             
 
@@ -202,9 +202,9 @@ if __name__ == "__main__":
     data = pickle.load(open(save_path, 'rb'))
     topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Sports', 3:'Politics', 4:'Economy', 5:'Lockdown', 6:'Food', 7:'Arts'}
 
-    popularity = []
-    nrc = []
-    emotag = []
+    # popularity = []
+    # nrc = []
+    # emotag = []
 
     print_topic_popularity(data, topics)
 
