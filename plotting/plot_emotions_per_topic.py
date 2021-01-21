@@ -194,7 +194,74 @@ def print_topic_popularity(data, topics):
         for topic in topics.values():
             if topic in data[data['month']==month]['topics'].values:
                 print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
-            
+
+
+def plot_emotion_dist(data, topic):
+    timeline = make_timeline_df()
+    months = [2,3,4,5,6,7]
+    dates = []
+    anger= []	
+    anticipation = []
+    disgust = []
+    fear = []	
+    joy = []	
+    sadness	= []
+    surprise = [] 
+    trust = []
+    
+    for month in months:
+        print("loading month " + str(month))
+        days = sorted(data[data['month']==month].day.unique())
+        # print(days)
+        for day in days: 
+            dates.append(datetime.strptime('2020-' + str(month) + '-' + str(day), "%Y-%m-%d").date())
+            rows = data.iloc[(data['month']==month) & (data['day']==day) & (data['topics']==topic)]
+            tweets=len(rows['text'])
+            anger.append(len(rows[(rows['emotag_anger'] > 0) | (rows['nrc_anger'] > 0)])/tweets)	
+            anticipation.append(len(rows[(rows['emotag_anticipation'] > 0) | (rows['nrc_anticipation'] > 0)])/tweets)
+            disgust.append(len(rows[(rows['emotag_disgust'] > 0) | (rows['nrc_disgust'] > 0)])/tweets)
+            fear.append(len(rows[(rows['emotag_fear'] > 0) | (rows['nrc_fear'] > 0)])/tweets)	
+            joy.append(len(rows[(rows['emotag_joy'] > 0) | (rows['nrc_joy'] > 0)])/tweets)	
+            sadness.append(len(rows[(rows['emotag_sadness'] > 0) | (rows['nrc_sadness'] > 0)])/tweets)
+            surprise.append(len(rows[(rows['emotag_surprise'] > 0) | (rows['nrc_surprise'] > 0)])/tweets) 
+            del rows
+
+    emotions = pd.DataFrame({'dates':dates, 'anger':anger, 'anticipation':anticipation,
+                            'disgust':disgust, 'fear':fear, 'joy':joy, 'sadness':sadness,
+                            'surprise':surprise, 'trust':trust})
+    
+    colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
+    fig, ax = plt.subplots(figsize=(15, 10))
+    ylim =  max(emotions['anger'].max(), emotions['anticipation'].max(), emotions['disgust'].max(), 
+            emotions['fear'].max(), emotions['joy'].max(), emotions['sadness'].max(), 
+            emotions['surprise'].max(), emotions['trust'].max()))
+    plt.ylim = (0, ylim)
+
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+    
+    plt.plot(emotions['dates'], emotions['anger'], color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emortions['anticipation'], color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['fear'], color = 'tab:olive', label = 'Fear')
+    plt.plot(emotions['dates'], emotions['disgust'], color = 'g', label = 'Disgust')
+    plt.plot(emotions['dates'], emotions['joy'], label = 'Joy')
+    plt.plot(emotions['dates'], emotions['sadness'], color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions['surprise'], color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions['trust'], color = 'k', label='Trust')
+
+    
+    letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
+    for i in range(len(timeline['date'])): 
+        plt.vlines(x=timeline['date'][i], ymin=0, ymax=ylim, color = '0.75')
+        plt.text(timeline['date'][i], ylim/2, timeline['event'][i], rotation=90, verticalalignment='center', fontsize=15, color = '0.6')
+        plt.text(timeline['date'][i], ylim - ylim/100, letters[i], rotation = 90, verticalalignment='top', fontsize=15, color='0.75')
+       
+    ax.set_xlabel("Dates", fontsize=18)
+    ax.set_ylabel("Percentage of tweets", fontsize=18)
+    ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
+    plt.gcf().autofmt_dxate()
+    plt.legend(loc = 'best')
+    plt.savefig('results/plots/timelines/topics/emotion_distribution.png')
 
 if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
@@ -206,7 +273,8 @@ if __name__ == "__main__":
     # nrc = []
     # emotag = []
 
-    print_topic_popularity(data, topics)
+    # print_topic_popularity(data, topics)
+    plot_emotion_dist(data, topics[0])
 
     # for topic in topics.values():
 
