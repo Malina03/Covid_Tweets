@@ -274,7 +274,7 @@ if __name__ == "__main__":
     # emotag = []
 
     # print_topic_popularity(data, topics)
-    plot_emotion_dist(data, topics[0])
+    plot_emotion_dist(data, topics[1])
 
     # for topic in topics.values():
 
