@@ -270,7 +270,7 @@ def plot_emotion_dist(data, topic):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Percentage of tweets", fontsize=18)
     ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
-    plt.gcf().autofmt_dxate()
+    # plt.gcf().autofmt_dxate()
     plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/emotion_distribution.png')
 
