@@ -156,7 +156,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
-   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
+    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
@@ -281,7 +281,7 @@ def plot_emotion_dist(data, topic):
     ax.set_ylabel("Percentage of tweets", fontsize=18)
     ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
     # plt.gcf().autofmt_dxate()
-   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
+    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/emotion_distribution.png')
 
 if __name__ == "__main__":
