@@ -52,6 +52,8 @@ def plot_timeline(dates, tweets):
 
     fig, ax = plt.subplots(figsize=(16, 9))
     plt.rc('xtick',labelsize=15)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
     plt.rc('ytick',labelsize=15)
     ylim = max(tweets)
     plt.ylim = (0, ylim)
