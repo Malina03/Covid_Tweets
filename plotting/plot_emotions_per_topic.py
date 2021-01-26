@@ -83,7 +83,9 @@ def make_timeline_df():
     return timeline
 
 def plot_emotions_topic(emotions, timeline, topic):
-    fig, ax = plt.subplots(figsize=(15, 10))
+    plt.rc('xtick',labelsize=15)
+    plt.rc('ytick',labelsize=15)
+    fig, ax = plt.subplots(figsize=(16, 9))
     ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
                 emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
                 emotions['surprise_emotag'].max(), emotions['trust_emotag'].max()) + max(emotions['anger_nrc'].max(), 
@@ -94,14 +96,14 @@ def plot_emotions_topic(emotions, timeline, topic):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     # ax.scatter(dates, tweets)
-    plt.plot(emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['dates'], emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['anger_emotag'] + emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['anger_nrc'], color = 'r', label = "Anger")
-    plt.plot(emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['dates'], emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['anticipation_emotag']+ emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['anticipation_nrc'], color = 'tab:orange', label = 'Anticipation')
     plt.plot(emotions.loc[emotions['fear_emotag'] + emotions['fear_nrc'] !=0]['dates'], emotions.loc[emotions['fear_emotag'] + emotions['fear_nrc'] !=0]['fear_emotag'] + emotions.loc[emotions['fear_emotag'] + emotions['fear_nrc'] !=0]['fear_nrc'], color = 'tab:olive', label = 'Fear')
-    plt.plot(emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['dates'], emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['disgust_emotag'] + emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['disgust_nrc'], color = 'g', label = 'Disgust')
+    plt.plot(emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['dates'], emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_emotag'] + emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_nrc'], color = 'k', label='Trust')
+    plt.plot(emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['dates'], emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['anticipation_emotag']+ emotions.loc[emotions['anticipation_emotag'] + emotions['anticipation_nrc'] !=0]['anticipation_nrc'], color = 'tab:orange', label = 'Anticipation')
     plt.plot(emotions.loc[emotions['joy_emotag'] + emotions['joy_nrc'] !=0]['dates'], emotions.loc[emotions['joy_emotag'] + emotions['joy_nrc'] !=0]['joy_emotag'] + emotions.loc[emotions['joy_emotag'] + emotions['joy_nrc'] !=0]['joy_nrc'], color = 'tab:pink', label = 'Joy')
     plt.plot(emotions.loc[emotions['sadness_emotag'] + emotions['sadness_nrc'] !=0]['dates'], emotions.loc[emotions['sadness_emotag'] + emotions['sadness_nrc'] !=0]['sadness_emotag'] + emotions.loc[emotions['sadness_emotag'] + emotions['sadness_nrc'] !=0]['sadness_nrc'], color = 'b', label = 'Sadness')
     plt.plot(emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['dates'], emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['surprise_emotag'] + emotions.loc[emotions['surprise_emotag'] + emotions['surprise_nrc'] !=0]['surprise_nrc'], color = 'tab:purple', label ='Surprise')
-    plt.plot(emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['dates'], emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_emotag'] + emotions.loc[emotions['trust_emotag'] + emotions['trust_nrc'] !=0]['trust_nrc'], color = 'k', label='Trust')
+    plt.plot(emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['dates'], emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['anger_emotag'] + emotions.loc[emotions['anger_emotag'] + emotions['anger_nrc'] !=0]['anger_nrc'], color = 'r', label = "Anger")
+    plt.plot(emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['dates'], emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['disgust_emotag'] + emotions.loc[emotions['disgust_emotag'] + emotions['disgust_nrc'] !=0]['disgust_nrc'], color = 'g', label = 'Disgust')
 
       
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
@@ -113,7 +115,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
-    plt.gcf().autofmt_xdate()
+    # plt.gcf().autofmt_xdate()
     plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
 
@@ -124,9 +126,11 @@ def compute_polarity_emotag(emotions):
     return emotions['joy_emotag'] + emotions['trust_emotag'] - emotions['anger_emotag'] - emotions['disgust_emotag']- emotions['fear_emotag'] - emotions['sadness_emotag']
 
 def plot_topic_popularity(popularity, dates, timeline, topics):
+    plt.rc('xtick',labelsize=15)
+    plt.rc('ytick',labelsize=15)
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(16, 9))
     max_pop = 0
     for i in popularity:
         if i.max() > max_pop:
@@ -149,14 +153,16 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
-    plt.gcf().autofmt_dxate()
+    # plt.gcf().autofmt_dxate()
     plt.legend(loc = 'best')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
+    plt.rc('xtick',labelsize=15)
+    plt.rc('ytick',labelsize=15)
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(16, 9))
     
 
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
@@ -182,7 +188,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
-    plt.gcf().autofmt_xdate()
+    # plt.gcf().autofmt_xdate()
     plt.legend(loc='best')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
@@ -242,7 +248,7 @@ def plot_emotion_dist(data, topic):
                             'surprise':surprise, 'trust':trust})
     
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(16, 9))
     ylim =  max(emotions['anger'].max(), emotions['anticipation'].max(), emotions['disgust'].max(), 
             emotions['fear'].max(), emotions['joy'].max(), emotions['sadness'].max(), 
             emotions['surprise'].max(), emotions['trust'].max())
@@ -251,14 +257,16 @@ def plot_emotion_dist(data, topic):
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     
-    plt.plot(emotions['dates'], emotions['anger'], color = 'r', label = "Anger")
-    plt.plot(emotions['dates'], emotions['anticipation'], color = 'tab:orange', label = 'Anticipation')
+
     plt.plot(emotions['dates'], emotions['fear'], color = 'tab:olive', label = 'Fear')
-    plt.plot(emotions['dates'], emotions['disgust'], color = 'g', label = 'Disgust')
-    plt.plot(emotions['dates'], emotions['joy'], color = 'tab:pink', label = 'Joy')
-    plt.plot(emotions['dates'], emotions['sadness'], color = 'b', label = 'Sadness')
-    plt.plot(emotions['dates'], emotions['surprise'], color = 'tab:purple', label ='Surprise')
     plt.plot(emotions['dates'], emotions['trust'], color = 'k', label='Trust')
+    plt.plot(emotions['dates'], emotions['anticipation'], color = 'tab:orange', label = 'Anticipation')
+    plt.plot(emotions['dates'], emotions['sadness'], color = 'b', label = 'Sadness')
+    plt.plot(emotions['dates'], emotions['joy'], color = 'tab:pink', label = 'Joy')
+    plt.plot(emotions['dates'], emotions['anger'], color = 'r', label = "Anger")
+    plt.plot(emotions['dates'], emotions['surprise'], color = 'tab:purple', label ='Surprise')
+    plt.plot(emotions['dates'], emotions['disgust'], color = 'g', label = 'Disgust')
+    
 
     
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
@@ -278,27 +286,27 @@ if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
 
     data = pickle.load(open(save_path, 'rb'))
-    topics = {0:'Covid-19 research', 1:'Covid-19 cases', 2:'Sports', 3:'Politics', 4:'Economy', 5:'Lockdown', 6:'Food', 7:'Arts'}
+    topics = {0:'Covid-19 cases', 1:'Lockdown', 2:'Economy', 3:'Covid-19 research', 4:'Sports', 5:'Politics' , 6:'Food', 7:'Arts'}
 
-    # popularity = []
-    # nrc = []
-    # emotag = []
+    popularity = []
+    nrc = []
+    emotag = []
 
     # print_topic_popularity(data, topics)
-    plot_emotion_dist(data, topics[1])
+    # plot_emotion_dist(data, topics[1])
 
-    # for topic in topics.values():
+    for topic in topics.values():
 
-    #     emotions = make_emotions_df_topic(data, topic)
-    #     print("Loaded df")
-        # popularity.append(emotions['tweets'])
-        # dates = emotions['dates']
-        # nrc.append(compute_polarity_nrc(emotions))
-        # emotag.append(compute_polarity_emotag(emotions))
+        emotions = make_emotions_df_topic(data, topic)
+        print("Loaded df")
+        popularity.append(emotions['tweets'])
+        dates = emotions['dates']
+        nrc.append(compute_polarity_nrc(emotions))
+        emotag.append(compute_polarity_emotag(emotions))
        
-        # timeline = make_timeline_df()
-        # plot_emotions_topic(emotions, timeline, topic)
+        timeline = make_timeline_df()
+        plot_emotions_topic(emotions, timeline, topic)
     
-    # plot_topic_popularity(popularity, dates, timeline, topics)
-    # plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
-    # plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
+    plot_topic_popularity(popularity, dates, timeline, topics)
+    plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
+    plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
