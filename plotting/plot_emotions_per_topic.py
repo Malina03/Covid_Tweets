@@ -117,7 +117,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
+    lgd = ax.legend(bbox_to_anchor=(1.02, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png',  bbox_extra_artists=(lgd,), bbox_inches='tight') 
 
 def compute_polarity_nrc(emotions):
@@ -156,7 +156,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
+    lgd = ax.legend(bbox_to_anchor=(1.02, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/topic_timeline.png',  bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
@@ -192,7 +192,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
+    lgd = ax.legend(bbox_to_anchor=(1.02, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png',  bbox_extra_artists=(lgd,), bbox_inches='tight') 
 
 def print_topic_popularity(data, topics):
@@ -281,7 +281,7 @@ def plot_emotion_dist(data, topic):
     ax.set_ylabel("Percentage of tweets", fontsize=18)
     ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
+    lgd = ax.legend(bbox_to_anchor=(1.02, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/emotion_distribution.png',  bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 if __name__ == "__main__":
