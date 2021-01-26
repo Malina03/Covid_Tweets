@@ -118,7 +118,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     # plt.gcf().autofmt_xdate()
     plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
-    plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
+    plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png',  bbox_extra_artists=(lgd,), bbox_inches='tight') 
 
 def compute_polarity_nrc(emotions):
     return emotions['joy_nrc'] + emotions['trust_nrc'] - emotions['anger_nrc'] - emotions['disgust_nrc']- emotions['fear_nrc'] - emotions['sadness_nrc']
@@ -157,7 +157,7 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
     plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
-    plt.savefig('results/plots/timelines/topics/topic_timeline.png')
+    plt.savefig('results/plots/timelines/topics/topic_timeline.png',  bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     plt.rc('xtick',labelsize=15)
@@ -193,7 +193,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     # plt.gcf().autofmt_xdate()
     plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
-    plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
+    plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png',  bbox_extra_artists=(lgd,), bbox_inches='tight') 
 
 def print_topic_popularity(data, topics):
     print("entered function")
@@ -282,7 +282,7 @@ def plot_emotion_dist(data, topic):
     ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
     # plt.gcf().autofmt_dxate()
     plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
-    plt.savefig('results/plots/timelines/topics/emotion_distribution.png')
+    plt.savefig('results/plots/timelines/topics/emotion_distribution.png',  bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 if __name__ == "__main__":
     save_path = 'data/data_emo_topics_df.pickle'
