@@ -200,6 +200,7 @@ def print_topic_popularity(data, topics):
     months = [2,3,4,5,6,7]
     for month in months:
         print(month)
+        print(data[data['month']==month].topics.unique())
         for topic in topics.values():
             print(topic + " " + str(len(data.loc[(data['month']==month) & (data['topics']==topic)]['text'])/len(data.loc[data['month']==month]['text'])))
 
