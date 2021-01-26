@@ -117,7 +117,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     # plt.gcf().autofmt_xdate()
-   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
+    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
 
 def compute_polarity_nrc(emotions):
