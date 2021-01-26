@@ -85,7 +85,7 @@ def make_timeline_df():
 def plot_emotions_topic(emotions, timeline, topic):
     plt.rc('xtick',labelsize=15)
     plt.rc('ytick',labelsize=15)
-    plt.rc('legend',fontsize=18)
+    plt.rc('legend',fontsize=15)
     fig, ax = plt.subplots(figsize=(16, 9))
     ylim = max(emotions['anger_emotag'].max(), emotions['anticipation_emotag'].max(), emotions['disgust_emotag'].max(), 
                 emotions['fear_emotag'].max(), emotions['joy_emotag'].max(), emotions['sadness_emotag'].max(), 
@@ -117,7 +117,7 @@ def plot_emotions_topic(emotions, timeline, topic):
     ax.set_ylabel("Emotions", fontsize=18)
     ax.set_title("Timeline of Emotions associated with " + topic, fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend(bbox_to_anchor=(0.5, -0.15), ncol= 4, loc='lower center')
+   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
     plt.savefig('results/plots/timelines/topics/emotions_' + topic + '.png') 
 
 def compute_polarity_nrc(emotions):
@@ -129,7 +129,7 @@ def compute_polarity_emotag(emotions):
 def plot_topic_popularity(popularity, dates, timeline, topics):
     plt.rc('xtick',labelsize=15)
     plt.rc('ytick',labelsize=15)
-    plt.rc('legend',fontsize=18)
+    plt.rc('legend',fontsize=15)
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(16, 9))
@@ -156,13 +156,13 @@ def plot_topic_popularity(popularity, dates, timeline, topics):
     ax.set_ylabel("Number of Tweets", fontsize=18)
     ax.set_title("Timeline of the Popularity of Topics", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend(bbox_to_anchor=(0.5, -0.15), ncol= 4, loc='lower center')
+   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
     plt.savefig('results/plots/timelines/topics/topic_timeline.png')
 
 def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     plt.rc('xtick',labelsize=15)
     plt.rc('ytick',labelsize=15)
-    plt.rc('legend',fontsize=18)
+    plt.rc('legend',fontsize=15)
     colors =  ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
 
     fig, ax = plt.subplots(figsize=(16, 9))
@@ -192,7 +192,7 @@ def plot_topic_polarity(polarity, dates, topics, timeline, lexicon):
     ax.set_ylabel("Polarity", fontsize=18)
     ax.set_title("Timeline of the Polarity of Emotions per Topic using " + lexicon,  fontsize=20)
     # plt.gcf().autofmt_xdate()
-    plt.legend(bbox_to_anchor=(0.5, -0.15), ncol= 4, loc='lower center')
+    plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left')
     plt.savefig('results/plots/timelines/topics/polarity_timeline_' + lexicon +'.png') 
 
 def print_topic_popularity(data, topics):
@@ -201,8 +201,7 @@ def print_topic_popularity(data, topics):
     for month in months:
         print(month)
         for topic in topics.values():
-            if topic in data[data['month']==month]['topics'].values:
-                print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
+            print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
 
 
 def plot_emotion_dist(data, topic):
@@ -282,7 +281,7 @@ def plot_emotion_dist(data, topic):
     ax.set_ylabel("Percentage of tweets", fontsize=18)
     ax.set_title("Distribution of Emotions for the Covid-19 Cases Topic", fontsize=20)
     # plt.gcf().autofmt_dxate()
-    plt.legend(bbox_to_anchor=(0.5, -0.15), ncol= 4, loc='lower center')
+   plt.legend(bbox_to_anchor=(1.05, 1), ncol= 1, loc='center left'))
     plt.savefig('results/plots/timelines/topics/emotion_distribution.png')
 
 if __name__ == "__main__":
