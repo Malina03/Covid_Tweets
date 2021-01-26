@@ -201,7 +201,7 @@ def print_topic_popularity(data, topics):
     for month in months:
         print(month)
         for topic in topics.values():
-            print(topic + " " + str(len(data[(data['month']==month) & (data['topics']==topic)]['text'])/len(data[data['month']==month]['text'])))
+            print(topic + " " + str(len(data.loc[(data['month']==month) & (data['topics']==topic)]['text'])/len(data.loc[data['month']==month]['text'])))
 
 
 def plot_emotion_dist(data, topic):
@@ -294,21 +294,21 @@ if __name__ == "__main__":
     nrc = []
     emotag = []
 
-    # print_topic_popularity(data, topics)
+    print_topic_popularity(data, topics)
     # plot_emotion_dist(data, topics[1])
 
-    for topic in topics.values():
+    # for topic in topics.values():
 
-        emotions = make_emotions_df_topic(data, topic)
-        print("Loaded df")
-        popularity.append(emotions['tweets'])
-        dates = emotions['dates']
-        nrc.append(compute_polarity_nrc(emotions))
-        emotag.append(compute_polarity_emotag(emotions))
+    #     emotions = make_emotions_df_topic(data, topic)
+    #     print("Loaded df")
+    #     popularity.append(emotions['tweets'])
+    #     dates = emotions['dates']
+    #     nrc.append(compute_polarity_nrc(emotions))
+    #     emotag.append(compute_polarity_emotag(emotions))
        
-        timeline = make_timeline_df()
-        plot_emotions_topic(emotions, timeline, topic)
+    #     timeline = make_timeline_df()
+    #     plot_emotions_topic(emotions, timeline, topic)
     
-    plot_topic_popularity(popularity, dates, timeline, topics)
-    plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
-    plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
+    # plot_topic_popularity(popularity, dates, timeline, topics)
+    # plot_topic_polarity(nrc, dates, topics, timeline, 'NRC')
+    # plot_topic_polarity(emotag, dates, topics, timeline, 'Emotag')
