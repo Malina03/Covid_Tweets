@@ -50,7 +50,9 @@ def plot_timeline(dates, tweets):
                         '14th July: Nightclubs reopen',])
     timeline = pd.DataFrame({'date':important_dates, 'event':events}, columns = {'date', 'event'})
 
-    fig, ax = plt.subplots(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(16, 9))
+    plt.rc('xtick',labelsize=15)
+    plt.rc('ytick',labelsize=15)
     ylim = max(tweets)
     plt.ylim = (0, ylim)
     
@@ -68,7 +70,7 @@ def plot_timeline(dates, tweets):
     ax.set_xlabel("Dates", fontsize=18)
     ax.set_ylabel("Tweet Counts", fontsize=18)
     ax.set_title("Timeline of the 40wita Corpus", fontsize=20)
-    plt.gcf().autofmt_xdate()
+    # plt.gcf().autofmt_xdate()
     plt.savefig('results/plots/timelines/complete_timeline.png') 
     
 # def plot_monthly_timeline(dates, tweets, month):
